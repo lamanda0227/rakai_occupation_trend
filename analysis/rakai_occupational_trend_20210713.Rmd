@@ -20,7 +20,7 @@ library(knitr)
 
 ## Pre-processing
 
-#### Loading Data
+### Loading Data
 
 ```{r load_data}
 setwd("/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data")
@@ -31,7 +31,7 @@ dat_part_cleaned <- read_dta("../data/R1_R18_partcleaned_incidence_20190913.dta"
 colors <- c("#8d96a3", "#edae49", "94bee3", "#5ec0b2", "#9fc96c", "#5ec0b2")
 ```
 
-#### Creating full dataset
+### Creating full dataset
 
 ```{r merge_data}
 # `hivrslt`: 1 2 3 7 8 9
@@ -61,57 +61,57 @@ dat_all <-
   select(-comm_num.x, -comm_num.y)
 ```
 
-**Check if all requested variables exist **
+**Check if all requested variables exist**
+  
+  ```{r filter_var}
+  vars <- c("occup1", "occup2", "occupat1", "occupat2", "occs", # outcome
+            "female", "ageyrs", "conf_age", "conf_age_flow", # demographics
+            "comm_num",
+            "radio", "bicycle","car","motorcyc","latrine", # SES
+            "electric", "floor", "othfloor", "roof", "walls",
+            "everpreg", "pregnow", "livechild", "numchild", # pregnancy
+            "evermarr", "currmarr", "polymar", "evermend", # marriage  
+            "pabuseyr", "ppushyr", "pfistyr", "pkickyr", # domestic violence
+            "pweapyr", "patknyr", "pothvyr",
+            "vthrsxpy", "pfocsxpy", "othfsxpy", "othpvyrs",# violence
+            "hivrslt",# hiv result
+            "occupat11", "occupat21", "occup11", "occup21", "occups1", # partner occupation
+            "educate", "educyrs", "school", "finsch", "pregsch", # education
+            "movesch", "menasch", "harasch", "bullwsch", "paresch",
+            "accomsch", "othsch", "spesch", "addtrain")
+  
+  dat_all %>% select(all_of(vars))
+  
+  # "occupat1", "occupat2", "occs",
+  # "conf_age", "conf_age_flow", visit
+  # "livechild", "numchild",
+  # "othpvyrs", "hivrslt",
+  # "occup11", "occup21", "occups1",
+  # "addtrain"
+  ```
 
-```{r filter_var}
-vars <- c("occup1", "occup2", "occupat1", "occupat2", "occs", # outcome
-          "female", "ageyrs", "conf_age", "conf_age_flow", # demographics
-          "comm_num",
-          "radio", "bicycle","car","motorcyc","latrine", # SES
-          "electric", "floor", "othfloor", "roof", "walls",
-          "everpreg", "pregnow", "livechild", "numchild", # pregnancy
-          "evermarr", "currmarr", "polymar", "evermend", # marriage  
-          "pabuseyr", "ppushyr", "pfistyr", "pkickyr", # domestic violence
-          "pweapyr", "patknyr", "pothvyr",
-          "vthrsxpy", "pfocsxpy", "othfsxpy", "othpvyrs",# violence
-          "hivrslt",# hiv result
-          "occupat11", "occupat21", "occup11", "occup21", "occups1", # partner occupation
-          "educate", "educyrs", "school", "finsch", "pregsch", # education
-          "movesch", "menasch", "harasch", "bullwsch", "paresch",
-          "accomsch", "othsch", "spesch", "addtrain")
 
-dat_all %>% select(all_of(vars))
+### Data Cleaning
 
-# "occupat1", "occupat2", "occs",
-# "conf_age", "conf_age_flow", visit
-# "livechild", "numchild",
-# "othpvyrs", "hivrslt",
-# "occup11", "occup21", "occups1",
-# "addtrain"
-```
+1. Create `age` variable by merging information from `conf_age_flow`, `conf_age`, `ageyrs`
 
+  ```{r}
+  # Prioritization: `conf_age_flow` -> `conf_age` -> `ageyrs`
+  dat_all <-
+    dat_all %>% 
+    mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %>% 
+    mutate(age = ifelse(is.na(age), ageyrs, age))
+  ```
 
-#### Data Cleaning
+2. Filter by age (15-24 year-old respondents) and generate `age groups` variable (15-17, 18-19, 20-24)
 
-**1. Create `age` variable by merging information from `conf_age_flow`, `conf_age`, `ageyrs`**
-
-```{r}
-# Prioritization: `conf_age_flow` -> `conf_age` -> `ageyrs`
-dat_all <-
-  dat_all %>% 
-  mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %>% 
-  mutate(age = ifelse(is.na(age), ageyrs, age))
-```
-
-**2. Filter by age (15-24 year-old respondents) and generate `age groups` variable (15-17, 18-19, 20-24)**
-
-```{r}
-dat_all <- 
-  dat_all %>%
-  filter(15 <= age & age <= 24) %>%
-  mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %>%
-  mutate(age_cat = labelled(age_cat, c("15-17" = 1, "18-19" = 2, "20-24" = 3)))
-```
+  ```{r}
+  dat_all <- 
+    dat_all %>%
+    filter(15 <= age & age <= 24) %>%
+    mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %>%
+    mutate(age_cat = labelled(age_cat, c("15-17" = 1, "18-19" = 2, "20-24" = 3)))
+  ```
 
 **3. Generate `visit` variable **
 
