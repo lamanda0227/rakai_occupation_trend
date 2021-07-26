@@ -1,0 +1,17 @@
+name: "rakai_occupation_trend"
+output_dir: ../docs
+navbar:
+  title: "rakai_occupation_trend"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
