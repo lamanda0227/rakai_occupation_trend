@@ -23,6 +23,8 @@ library(knitr)
 #### Loading Data
 
 ```{r load_data}
+setwd("/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data")
+
 dat <- read_dta("../data/all_data_original_id_1_19.dta")
 dat_part_cleaned <- read_dta("../data/R1_R18_partcleaned_incidence_20190913.dta")
 
