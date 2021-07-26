@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Amanda(Tianyi) Liu" />
+
+
+<title>Occupation Trends over Time in AYA</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rakai_occupation_trend</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Occupation Trends over Time in AYA</h1>
+<h4 class="author">Amanda(Tianyi) Liu</h4>
+<h4 class="date">13/07/2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-26
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rakai_occupation_trend/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210726code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210726)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210726code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210726)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
+</p>
+</div>
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data
+</td>
+<td style="text-align:left;">
+data
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree14fc0e28eadd1508af7f4df8de63f974845b0423targetblank14fc0e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/14fc0e28eadd1508af7f4df8de63f974845b0423" target="_blank">14fc0e2</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree14fc0e28eadd1508af7f4df8de63f974845b0423targetblank14fc0e2a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/14fc0e28eadd1508af7f4df8de63f974845b0423" target="_blank">14fc0e2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    Literature/
+    Ignored:    Logistic/
+    Ignored:    Survey/
+    Ignored:    Training/
+    Ignored:    data/.DS_Store
+    Ignored:    data/Fishing Villages
+    Ignored:    data/PCA_weights.xlsx
+    Ignored:    data/R1_R18_partcleaned_incidence_20190913.dta
+    Ignored:    data/R1_R18_risk_behaviors.dta
+    Ignored:    data/RYP codebook_2014_Updated_2019Mar12.xlsx
+    Ignored:    data/Rural and Peri-urban Communities
+    Ignored:    data/SES_cutpoints.xlsx
+    Ignored:    data/all_data_original_id_1_19.dta
+    Ignored:    data/all_data_unique_id_1_19.dta
+    Ignored:    data/proposed_variables.csv
+    Ignored:    data/training.dta
+
+Untracked files:
+    Untracked:  .DS_Store
+
+Unstaged changes:
+    Deleted:    analysis/rakai_occupational_trend_20210713.html
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/rakai_occupational_trend_20210713.Rmd</code>) and HTML (<code>docs/rakai_occupational_trend_20210713.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/14fc0e28eadd1508af7f4df8de63f974845b0423/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">14fc0e2</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+<td>
+wflow_publish("analysis/rakai_occupational_trend_20210713.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/f566ea422ae5ca44847e8550a19749f503615f7a/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">f566ea4</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+<td>
+20210726-initial-commit
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(tidyverse)
+library(haven)
+library(ggplot2)
+library(scales)
+library(kableExtra)
+library(knitr)</code></pre>
+<div id="pre-processing" class="section level2">
+<h2>Pre-processing</h2>
+<div id="loading-data" class="section level4">
+<h4>Loading Data</h4>
+<pre class="r"><code>setwd(&quot;/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data&quot;)
+
+dat &lt;- read_dta(&quot;../data/all_data_original_id_1_19.dta&quot;)
+dat_part_cleaned &lt;- read_dta(&quot;../data/R1_R18_partcleaned_incidence_20190913.dta&quot;)
+
+colors &lt;- c(&quot;#8d96a3&quot;, &quot;#edae49&quot;, &quot;94bee3&quot;, &quot;#5ec0b2&quot;, &quot;#9fc96c&quot;, &quot;#5ec0b2&quot;)</code></pre>
+</div>
+<div id="creating-full-dataset" class="section level4">
+<h4>Creating full dataset</h4>
+<pre class="r"><code># `hivrslt`: 1 2 3 7 8 9
+hivrslt_dat &lt;- 
+  dat_part_cleaned %&gt;% 
+  select(study_id, round, hivrslt) %&gt;%
+  drop_na(hivrslt)
+
+comm_num_dat &lt;- 
+  dat_part_cleaned %&gt;% 
+  select(study_id, round, comm_num) %&gt;%
+  drop_na(comm_num)
+
+# .y: dat_part_cleaned
+# If conflict in data, use data from &quot;all_data_original_id_1_19.dta&quot;
+
+dat_all &lt;- 
+  dat %&gt;%
+  left_join(hivrslt_dat, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;round&quot; = &quot;round&quot;)) %&gt;%
+  mutate(hivrslt = ifelse(is.na(hivrslt.x), hivrslt.y, hivrslt.x)) %&gt;%
+  select(-hivrslt.x, -hivrslt.y)
+
+dat_all &lt;-
+  dat_all %&gt;%  
+  left_join(comm_num_dat, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;round&quot; = &quot;round&quot;)) %&gt;%
+  mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %&gt;%
+  select(-comm_num.x, -comm_num.y)</code></pre>
+<p><strong>Check if all requested variables exist </strong></p>
+<pre class="r"><code>vars &lt;- c(&quot;occup1&quot;, &quot;occup2&quot;, &quot;occupat1&quot;, &quot;occupat2&quot;, &quot;occs&quot;, # outcome
+          &quot;female&quot;, &quot;ageyrs&quot;, &quot;conf_age&quot;, &quot;conf_age_flow&quot;, # demographics
+          &quot;comm_num&quot;,
+          &quot;radio&quot;, &quot;bicycle&quot;,&quot;car&quot;,&quot;motorcyc&quot;,&quot;latrine&quot;, # SES
+          &quot;electric&quot;, &quot;floor&quot;, &quot;othfloor&quot;, &quot;roof&quot;, &quot;walls&quot;,
+          &quot;everpreg&quot;, &quot;pregnow&quot;, &quot;livechild&quot;, &quot;numchild&quot;, # pregnancy
+          &quot;evermarr&quot;, &quot;currmarr&quot;, &quot;polymar&quot;, &quot;evermend&quot;, # marriage  
+          &quot;pabuseyr&quot;, &quot;ppushyr&quot;, &quot;pfistyr&quot;, &quot;pkickyr&quot;, # domestic violence
+          &quot;pweapyr&quot;, &quot;patknyr&quot;, &quot;pothvyr&quot;,
+          &quot;vthrsxpy&quot;, &quot;pfocsxpy&quot;, &quot;othfsxpy&quot;, &quot;othpvyrs&quot;,# violence
+          &quot;hivrslt&quot;,# hiv result
+          &quot;occupat11&quot;, &quot;occupat21&quot;, &quot;occup11&quot;, &quot;occup21&quot;, &quot;occups1&quot;, # partner occupation
+          &quot;educate&quot;, &quot;educyrs&quot;, &quot;school&quot;, &quot;finsch&quot;, &quot;pregsch&quot;, # education
+          &quot;movesch&quot;, &quot;menasch&quot;, &quot;harasch&quot;, &quot;bullwsch&quot;, &quot;paresch&quot;,
+          &quot;accomsch&quot;, &quot;othsch&quot;, &quot;spesch&quot;, &quot;addtrain&quot;)
+
+dat_all %&gt;% select(all_of(vars))</code></pre>
+<pre><code># A tibble: 105,060 x 59
+   occup1 occup2 occupat1 occupat2 occs     female ageyrs conf_age conf_age_flow
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;dbl+l&gt;  &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
+ 1      6      1 &quot;&quot;       &quot;&quot;       &quot;NULL&quot;  1 [Fem…     16       NA            16
+ 2      6      1 &quot;&quot;       &quot;&quot;       &quot;NULL&quot;  1 [Fem…     18       NA            18
+ 3      8      3 &quot;NULL&quot;   &quot;NULL&quot;   &quot;STUDE… 1 [Fem…     20       NA            20
+ 4      1      3 &quot;&quot;       &quot;&quot;       &quot;&quot;      1 [Fem…     22       NA            22
+ 5      8      3 &quot;&quot;       &quot;&quot;       &quot;STUDE… 0 [Mal…     15       NA            15
+ 6      8      3 &quot;&quot;       &quot;&quot;       &quot;NULL&quot;  0 [Mal…     16       NA            16
+ 7     10      1 &quot;&quot;       &quot;&quot;       &quot;SHOP … 0 [Mal…     17       NA            17
+ 8     10      1 &quot;&quot;       &quot;&quot;       &quot;SHOP … 1 [Fem…     23       NA            23
+ 9     10      1 &quot;&quot;       &quot;&quot;       &quot;NULL&quot;  1 [Fem…     23       NA            23
+10     10      1 &quot;&quot;       &quot;&quot;       &quot;NULL&quot;  1 [Fem…     20       NA            20
+# … with 105,050 more rows, and 50 more variables: comm_num &lt;dbl&gt;, radio &lt;dbl&gt;,
+#   bicycle &lt;dbl&gt;, car &lt;dbl&gt;, motorcyc &lt;dbl&gt;, latrine &lt;dbl&gt;, electric &lt;dbl&gt;,
+#   floor &lt;dbl&gt;, othfloor &lt;chr&gt;, roof &lt;dbl&gt;, walls &lt;dbl&gt;, everpreg &lt;dbl+lbl&gt;,
+#   pregnow &lt;dbl+lbl&gt;, livechild &lt;dbl&gt;, numchild &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;,
+#   currmarr &lt;dbl+lbl&gt;, polymar &lt;dbl&gt;, evermend &lt;dbl+lbl&gt;, pabuseyr &lt;dbl+lbl&gt;,
+#   ppushyr &lt;dbl+lbl&gt;, pfistyr &lt;dbl+lbl&gt;, pkickyr &lt;dbl+lbl&gt;, pweapyr &lt;dbl+lbl&gt;,
+#   patknyr &lt;dbl+lbl&gt;, pothvyr &lt;dbl+lbl&gt;, vthrsxpy &lt;dbl+lbl&gt;,
+#   pfocsxpy &lt;dbl+lbl&gt;, othfsxpy &lt;dbl+lbl&gt;, othpvyrs &lt;chr&gt;, hivrslt &lt;dbl&gt;,
+#   occupat11 &lt;chr&gt;, occupat21 &lt;chr&gt;, occup11 &lt;dbl&gt;, occup21 &lt;dbl&gt;,
+#   occups1 &lt;chr&gt;, educate &lt;dbl+lbl&gt;, educyrs &lt;dbl&gt;, school &lt;dbl+lbl&gt;,
+#   finsch &lt;dbl+lbl&gt;, pregsch &lt;dbl+lbl&gt;, movesch &lt;dbl+lbl&gt;, menasch &lt;dbl+lbl&gt;,
+#   harasch &lt;dbl+lbl&gt;, bullwsch &lt;dbl+lbl&gt;, paresch &lt;dbl+lbl&gt;,
+#   accomsch &lt;dbl+lbl&gt;, othsch &lt;dbl+lbl&gt;, spesch &lt;chr&gt;, addtrain &lt;dbl&gt;</code></pre>
+<pre class="r"><code># &quot;occupat1&quot;, &quot;occupat2&quot;, &quot;occs&quot;,
+# &quot;conf_age&quot;, &quot;conf_age_flow&quot;, visit
+# &quot;livechild&quot;, &quot;numchild&quot;,
+# &quot;othpvyrs&quot;, &quot;hivrslt&quot;,
+# &quot;occup11&quot;, &quot;occup21&quot;, &quot;occups1&quot;,
+# &quot;addtrain&quot;</code></pre>
+</div>
+<div id="data-cleaning" class="section level4">
+<h4>Data Cleaning</h4>
+<p><strong>1. Create <code>age</code> variable by merging information from <code>conf_age_flow</code>, <code>conf_age</code>, <code>ageyrs</code></strong></p>
+<pre class="r"><code># Prioritization: `conf_age_flow` -&gt; `conf_age` -&gt; `ageyrs`
+dat_all &lt;-
+  dat_all %&gt;% 
+  mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %&gt;% 
+  mutate(age = ifelse(is.na(age), ageyrs, age))</code></pre>
+<p><strong>2. Filter by age (15-24 year-old respondents) and generate <code>age groups</code> variable (15-17, 18-19, 20-24)</strong></p>
+<pre class="r"><code>dat_all &lt;- 
+  dat_all %&gt;%
+  filter(15 &lt;= age &amp; age &lt;= 24) %&gt;%
+  mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %&gt;%
+  mutate(age_cat = labelled(age_cat, c(&quot;15-17&quot; = 1, &quot;18-19&quot; = 2, &quot;20-24&quot; = 3)))</code></pre>
+<p><strong>3. Generate <code>visit</code> variable </strong></p>
+<pre class="r"><code>dat_all &lt;- 
+  dat_all %&gt;% 
+  mutate(visit = str_sub(round, 2, -1)) %&gt;%
+  mutate(visit = as.numeric(visit))</code></pre>
+<p><strong>4. Generate <code>time period</code> variable (R1-R9 and R10-R19)</strong></p>
+<pre class="r"><code>dat_all &lt;-
+  dat_all %&gt;% 
+  mutate(period = cut(visit, breaks = c(0.5, 9.5, 19.5), labels = c(1, 2))) %&gt;%
+  mutate(period = labelled(period, c(&quot;R1-R9&quot; = 1, &quot;R10-R19&quot; = 2)))</code></pre>
+<p><strong>5. Generate <code>area</code> variable</strong></p>
+<pre class="r"><code>comm_fishing &lt;- c(23, 38, 370, 770, 771, 772, 773, 774, 51, 776)
+area_fishing &lt;- rep(&quot;fishing&quot;, length(comm_fishing))
+
+comm_rural &lt;- c(3, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 44, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 65, 67, 68, 77, 81, 84, 89, 94, 95, 103, 106, 107, 108, 109, 120, 177, 183, 256, 391, 401, 451, 468, 602, 755, 760, 900, 901)
+area_rural &lt;- rep(&quot;rural&quot;, length(comm_rural))
+
+comm_periurban &lt;- c(1, 2, 4, 5, 9, 22, 24, 26, 40, 45, 46, 74, 754)
+area_periurban &lt;- rep(&quot;periurban&quot;, length(comm_periurban))
+
+area &lt;- data.frame(&quot;comm_num&quot; = c(comm_fishing, comm_rural, comm_periurban),
+                   &quot;area&quot; = c(area_fishing, area_rural, area_periurban))
+
+dat_all &lt;-
+  dat_all %&gt;%
+  left_join(area)</code></pre>
+<p><strong>6. Categorize occupations for respondents (based on R1-18 part cleaned data)</strong></p>
+<pre class="r"><code># labelling occupations
+occup_lab &lt;- c(&quot;Agriculture for home use/barter&quot; = 1,
+               &quot;Agriculture for selling&quot; = 2,
+               &quot;Housework in your own home&quot; = 3,
+               &quot;Housekeeper (for relative or employer)&quot; = 4,
+               &quot;Home brewing&quot; = 5,
+               &quot;Government/clerical/teaching&quot; = 6,
+               &quot;Fishing&quot; = 7,
+               &quot;Student&quot; = 8,
+               &quot;Military/police&quot; = 9,
+               &quot;Shopkeeper&quot; = 10,
+               &quot;Trading/vending&quot; =  11,
+               &quot;Bar worker or owner&quot; = 12,
+               &quot;Trucker&quot; =  13,
+               &quot;Unemployed&quot; = 14,
+               &quot;Other&quot; = 15,
+               &quot;No additional occupation&quot; = 88,
+               &quot;Medical worker (non-government)&quot; = 16,
+               &quot;Casual laborer&quot; =  17,
+               &quot;Waitress/Waiter/restaurant owner&quot; = 18,
+               &quot;Hair dresser/Salon owner&quot; = 19,
+               &quot;Construction (brick maker, builder, porter, painter, roofing)&quot; = 20,
+               &quot;Mechanic (automobiles, bicycles, electronics)&quot; = 21,
+               &quot;Boda Boda&quot; = 22,
+               &quot;Client/Sex worker&quot; = 23,
+               &quot;Sports betting, Gambling machine, Ludo&quot; = 24, 
+               &quot;Don&#39;t know&quot; = 97,
+               &quot;Don&#39;t know&quot; = 98,
+               &quot;No response&quot; = 99)
+
+dat_all$occup1 &lt;- dat_all$occup1 %&gt;% labelled(occup_lab)
+dat_all$occup2 &lt;- dat_all$occup2 %&gt;% labelled(occup_lab)
+
+# categorize occupation
+occup1_cat &lt;- dat_part_cleaned %&gt;% select(occup1, occup1_cat) %&gt;% unique() %&gt;% arrange(occup1) %&gt;% drop_na(occup1)
+occup2_cat &lt;- occup1_cat %&gt;% rename(occup2 = occup1, occup2_cat = occup1_cat)
+
+occup1_mob &lt;- dat_part_cleaned %&gt;% select(occup1, occup1_mob) %&gt;% unique() %&gt;% arrange(occup1) %&gt;% drop_na(occup1)
+occup2_mob &lt;- occup1_mob %&gt;% rename(occup2 = occup1, occup2_mob = occup1_mob)
+
+dat_all &lt;- 
+  dat_all %&gt;% 
+  left_join(occup1_cat, by = (&quot;occup1&quot; = &quot;occup1&quot;)) %&gt;%
+  left_join(occup1_mob, by = (&quot;occup1&quot; = &quot;occup1&quot;))
+
+dat_all &lt;- dat_all %&gt;% 
+  left_join(occup2_cat, by = (&quot;occup2&quot; = &quot;occup2&quot;)) %&gt;%
+  left_join(occup2_mob, by = (&quot;occup2&quot; = &quot;occup2&quot;))</code></pre>
+<p><strong>7. Recoding/labelling <code>hivrslt</code> variable</strong></p>
+<pre class="r"><code># `hivrslt`: 1 2 3 7 8 9
+hivrslt_lab &lt;- c(&quot;Negative&quot; = 1,
+                 &quot;Positive&quot; = 2,
+                 &quot;Indeterminate&quot; = 3,
+                 &quot;Don’t know/Don’t remember&quot; = 7,
+                 &quot;NA&quot; = 8,
+                 &quot;No Response&quot; = 9)
+
+dat_all$hivrslt &lt;- dat_all$hivrslt %&gt;% labelled(hivrslt_lab)</code></pre>
+</div>
+</div>
+<div id="preliminary-analysis" class="section level2">
+<h2>Preliminary Analysis</h2>
+<div id="visualize-general-occupation-trends" class="section level4">
+<h4>Visualize general occupation trends</h4>
+<p><strong>1. Top occupations for each community type</strong></p>
+<pre class="r"><code>top_occup_area &lt;- 
+  dat_all %&gt;% 
+  select (study_id, visit, area, occup1) %&gt;%
+  gather(key, occup, -study_id, -visit, -area) %&gt;%
+  as_factor() %&gt;%
+  mutate(dummy = &quot;yes&quot;) %&gt;%
+  spread(occup, dummy) %&gt;%
+  gather(job, value,  -study_id, -visit, -area, -key) %&gt;%
+  drop_na() %&gt;%
+  group_by(area, job) %&gt;%
+  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;)))
+
+top_occup_area %&gt;% 
+  filter(area == &quot;fishing&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Fishing Communities&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top_occup_area %&gt;% 
+  filter(area == &quot;periurban&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Periurban Communities&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top_occup_area %&gt;% 
+  filter(area == &quot;rural&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value, fill)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Rural Communities&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>2. Top occupations for each gender</strong></p>
+<pre class="r"><code>top_occup_gender &lt;- 
+  dat_all %&gt;% 
+  select (study_id, visit, female, occup1) %&gt;%
+  gather(key, occup, -study_id, -visit, -female) %&gt;%
+  as_factor() %&gt;%
+  mutate(dummy = &quot;yes&quot;) %&gt;%
+  spread(occup, dummy) %&gt;%
+  gather(job, value,  -study_id, -visit, -female, -key) %&gt;%
+  drop_na() %&gt;%
+  group_by(female, job) %&gt;%
+  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;)))
+
+top_occup_gender %&gt;% 
+  filter(female == &quot;Male&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Male&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top_occup_gender %&gt;% 
+  filter(female == &quot;Female&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Female&quot;) +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><strong>3. Top occupations for each age group</strong></p>
+<pre class="r"><code>top_occup_agecat &lt;- 
+  dat_all %&gt;% 
+  select (study_id, visit, female, age_cat, occup1) %&gt;%
+  gather(key, occup, -study_id, -visit, -age_cat, -female) %&gt;%
+  as_factor() %&gt;%
+  mutate(dummy = &quot;yes&quot;) %&gt;%
+  spread(occup, dummy) %&gt;%
+  gather(job, value,  -study_id, -visit, -age_cat, -key, -female) %&gt;%
+  drop_na() %&gt;%
+  group_by(age_cat, job, female) %&gt;%
+  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;))) %&gt;%
+  mutate(frequency = sum(value))
+  
+for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
+  p &lt;- top_occup_agecat %&gt;% 
+    filter(age_cat == i) %&gt;%
+    arrange(desc(frequency)) %&gt;%
+    head(10) %&gt;%
+    ggplot(aes(x = factor(job, unique(job)), y = value, fill = female, label = value)) +
+    geom_bar(stat = &quot;identity&quot;)+
+    geom_text(size = 3, position = position_stack(vjust = 0.5)) +
+    scale_fill_manual(values=colors) +
+    scale_x_discrete(labels = wrap_format(15)) +
+    labs(x=&#39;&#39;, y=&#39;&#39;, title = paste(&quot;Top Occupations for Respondents Aged&quot;, i)) +
+    theme_minimal() + 
+    theme(plot.title = element_text(hjust = 0.5),
+          legend.title = element_blank())
+  print(p)
+}</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>It can be observed from above analysis that the top occupations for AYA include <code>Student</code>, <code>Agriculture for home use/barter</code>, <code>Housework in your own home</code>, <code>Agriculture for selling</code>, <code>Government/clerical/teaching</code>, <code>Trading/Vending</code> and <code>Other</code> (in addition to one community-specific occupation <code>Fishing</code>). Therefore, following analysis will be mainly focused on these occupations.</p>
+</div>
+</div>
+<div id="describe-trends-over-time-in-aya-occupations" class="section level2">
+<h2>Describe trends over time in AYA occupations</h2>
+<p><strong>Trend by <code>visit</code></strong></p>
+<pre class="r"><code># Student 8
+# Agriculture for home use/barter 1
+# Housework in your own home 3
+# Agriculture for selling 2
+# Government/clerical/teaching 6
+# Trading/Vending 11
+# Other 15
+# Fishing 7
+
+occup_list &lt;- c(&quot;Student&quot;, 
+                &quot;Agriculture for home use/barter&quot;, 
+                &quot;Housework in your own home&quot;, 
+                &quot;Agriculture for selling&quot;, 
+                &quot;Government/clerical/teaching&quot;, 
+                &quot;Trading/vending&quot;, 
+                &quot;Other&quot;, 
+                &quot;Fishing&quot;)</code></pre>
+<pre class="r"><code>occup_trend_visit &lt;- dat_all %&gt;% 
+  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %&gt;%
+  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %&gt;% 
+  group_by(occup1, visit, female) %&gt;%
+  count(occup1) %&gt;%
+  as_factor()
+
+occup_trend_visit %&gt;%
+  drop_na(female) %&gt;%
+  group_by(occup1) %&gt;%
+  ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
+  geom_line() + geom_point() + facet_wrap(~occup1) +
+  labs(x=&#39;Visit&#39;, y=&#39;Number of Respondents&#39;, title=&quot;Trend Over Time for Occupations&quot;, subtitle=&quot;by visit&quot;) +
+  scale_color_manual(values = colors) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+                          plot.subtitle = element_text(hjust = 0.5),
+                          legend.title = element_blank())</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># for (i in occup_list){
+#   p &lt;- occup_trend_visit %&gt;%
+#     filter(occup1 == i) %&gt;%
+#     drop_na(female) %&gt;%
+#     ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point()+
+#     labs(x=&#39;Visit&#39;, y=&#39;Number of Respondents&#39;, title = paste(&quot;Trend Over Time for&quot;, i), subtitle = &quot;(by visit)&quot;) +
+#     scale_color_manual(values = colors) +
+#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+#                             plot.subtitle = element_text(hjust = 0.5),
+#                             legend.title = element_blank())
+#   print(p)
+# }</code></pre>
+<p><strong>Trend by <code>age</code></strong></p>
+<pre class="r"><code>occup_trend_age &lt;- dat_all %&gt;% 
+  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %&gt;%
+  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %&gt;% 
+  group_by(occup1, age, female) %&gt;%
+  count(occup1) %&gt;%
+  as_factor()
+
+occup_trend_age %&gt;%
+  drop_na(female) %&gt;%
+  group_by(occup1) %&gt;%
+  ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+  geom_line() + geom_point() + facet_wrap(~occup1) +
+  labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=&quot;Trend Over Time for Occupations&quot;, subtitle=&quot;(by age)&quot;) +
+  scale_color_manual(values = colors) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+                          plot.subtitle = element_text(hjust = 0.5),
+                          legend.title = element_blank())</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># for (i in occup_list){
+#   p &lt;- occup_trend_age %&gt;%
+#     filter(occup1 == i) %&gt;%
+#     drop_na(female) %&gt;%
+#     ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point() +
+#     labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=paste(&quot;Trend Over Time for&quot;, i), subtitle=&quot;(by age)&quot;) +
+#     scale_color_manual(values = colors) +
+#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+#                             plot.subtitle = element_text(hjust = 0.5),
+#                             legend.title = element_blank())
+#   
+#   print(p)
+# }</code></pre>
+<p><strong>Generate a word cloud for occupations described in <code>Other</code></strong></p>
+<pre class="r"><code>library(tidytext)
+library(wordcloud)
+library(RColorBrewer)
+library(SnowballC)
+
+occs_word &lt;- 
+  dat_all %&gt;%
+  select(occup1, occs) %&gt;% 
+  filter(occup1 == 15, occs != &quot;NULL&quot;) %&gt;% 
+  unnest_tokens(word, occs) %&gt;%
+  mutate(word = wordStem(word)) %&gt;%
+  anti_join(stop_words) %&gt;% 
+  count(word, sort = TRUE)
+
+wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = brewer.pal(8, &quot;Dark2&quot;))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="association-between-social-and-structural-transitions-and-occupations" class="section level2">
+<h2>Association between social and structural transitions and occupations</h2>
+<ol style="list-style-type: decimal">
+<li><p>Moving (change in <code>area</code> in consecutive rounds)</p></li>
+<li><p>Pregnancy (<code>everpreg = 1</code> -&gt; <code>pregnow = 1</code> -&gt; <code>pregnow</code> change from 0 to 1 in consecutive rounds)</p></li>
+<li><p>Drastic change in SES (create a variable called <code>percentage change in SES</code> -&gt; when change between consecutive rounds is bigger than 30% (<strong>tbd, reference needed</strong>)? )</p></li>
+<li><p>Have a Child (<code>livechild</code> from 0 to 1 in consecutive rounds)</p></li>
+<li><p>Marriage (<code>evermarr 1 =</code> -&gt; <code>currmarr = 1</code> -&gt; <code>currmarr</code> change from 0 to 1 in consecutive rounds)</p></li>
+<li><p>Marital Dissolution (<code>evermarr 1 =</code> -&gt; <code>currmarr = 0</code> -&gt; <code>currmarr</code> change from 1 to 0 in consecutive rounds)</p></li>
+</ol>
+</div>
+<div id="assess-the-role-in-policies-like-upe-and-use-in-any-shifts-in-occupations-over-time" class="section level2">
+<h2>Assess the role in policies like UPE and USE in any shifts in occupations over time</h2>
+</div>
+<div id="variable-selection-and-transformation" class="section level2">
+<h2>Variable selection and transformation</h2>
+</div>
+<div id="model-fitting" class="section level2">
+<h2>Model fitting</h2>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.4 (2021-02-15)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] SnowballC_0.7.0    wordcloud_2.6      RColorBrewer_1.1-2 tidytext_0.3.1    
+ [5] knitr_1.33         kableExtra_1.3.4   scales_1.1.1       haven_2.3.1       
+ [9] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.6        purrr_0.3.4       
+[13] readr_1.4.0        tidyr_1.1.3        tibble_3.1.2       ggplot2_3.3.3     
+[17] tidyverse_1.3.1    workflowr_1.6.2   
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.2        jsonlite_1.7.2    viridisLite_0.4.0 modelr_0.1.8     
+ [5] assertthat_0.2.1  highr_0.9         cellranger_1.1.0  yaml_2.2.1       
+ [9] pillar_1.6.1      backports_1.2.1   lattice_0.20-44   glue_1.4.2       
+[13] digest_0.6.27     promises_1.2.0.1  rvest_1.0.0       colorspace_2.0-1 
+[17] htmltools_0.5.1.1 httpuv_1.6.1      Matrix_1.3-3      pkgconfig_2.0.3  
+[21] broom_0.7.6       webshot_0.5.2     svglite_2.0.0     whisker_0.4      
+[25] later_1.2.0       git2r_0.28.0      generics_0.1.0    farver_2.1.0     
+[29] ellipsis_0.3.2    withr_2.4.2       cli_3.0.0         magrittr_2.0.1   
+[33] crayon_1.4.1      readxl_1.3.1      evaluate_0.14     tokenizers_0.2.1 
+[37] janeaustenr_0.1.5 fs_1.5.0          fansi_0.5.0       xml2_1.3.2       
+[41] tools_4.0.4       hms_1.1.0         lifecycle_1.0.0   munsell_0.5.0    
+[45] reprex_2.0.0      compiler_4.0.4    systemfonts_1.0.2 rlang_0.4.11     
+[49] grid_4.0.4        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.8    
+[53] gtable_0.3.0      DBI_1.1.1         R6_2.5.0          lubridate_1.7.10 
+[57] utf8_1.2.1        rprojroot_2.0.2   stringi_1.6.2     Rcpp_1.0.6       
+[61] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.23        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
