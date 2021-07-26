@@ -36,6 +36,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -339,7 +341,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/lamanda0227/rakai_occupation_trend">
+    <span class="fas fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -491,16 +499,16 @@ data
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree14fc0e28eadd1508af7f4df8de63f974845b0423targetblank14fc0e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/14fc0e28eadd1508af7f4df8de63f974845b0423" target="_blank">14fc0e2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreef0ff5e42f9d008dcc415636dd8b798fdb9c6a9cetargetblankf0ff5e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/f0ff5e42f9d008dcc415636dd8b798fdb9c6a9ce" target="_blank">f0ff5e4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree14fc0e28eadd1508af7f4df8de63f974845b0423targetblank14fc0e2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreef0ff5e42f9d008dcc415636dd8b798fdb9c6a9cetargetblankf0ff5e4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/14fc0e28eadd1508af7f4df8de63f974845b0423" target="_blank">14fc0e2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/f0ff5e42f9d008dcc415636dd8b798fdb9c6a9ce" target="_blank">f0ff5e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -526,9 +534,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  .DS_Store
-
-Unstaged changes:
-    Deleted:    analysis/rakai_occupational_trend_20210713.html
 
 </code></pre>
 <p>
@@ -567,6 +572,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/f0ff5e42f9d008dcc415636dd8b798fdb9c6a9ce/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">f0ff5e4</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+<td>
+wflow_publish(c("analysis/rakai_occupational_trend_20210713.Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lamanda0227/rakai_occupation_trend/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/rakai_occupational_trend_20210713.html" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -616,8 +655,8 @@ library(kableExtra)
 library(knitr)</code></pre>
 <div id="pre-processing" class="section level2">
 <h2>Pre-processing</h2>
-<div id="loading-data" class="section level4">
-<h4>Loading Data</h4>
+<div id="loading-data" class="section level3">
+<h3>Loading Data</h3>
 <pre class="r"><code>setwd(&quot;/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data&quot;)
 
 dat &lt;- read_dta(&quot;../data/all_data_original_id_1_19.dta&quot;)
@@ -625,8 +664,8 @@ dat_part_cleaned &lt;- read_dta(&quot;../data/R1_R18_partcleaned_incidence_20190
 
 colors &lt;- c(&quot;#8d96a3&quot;, &quot;#edae49&quot;, &quot;94bee3&quot;, &quot;#5ec0b2&quot;, &quot;#9fc96c&quot;, &quot;#5ec0b2&quot;)</code></pre>
 </div>
-<div id="creating-full-dataset" class="section level4">
-<h4>Creating full dataset</h4>
+<div id="creating-full-dataset" class="section level3">
+<h3>Creating full dataset</h3>
 <pre class="r"><code># `hivrslt`: 1 2 3 7 8 9
 hivrslt_dat &lt;- 
   dat_part_cleaned %&gt;% 
@@ -652,7 +691,7 @@ dat_all &lt;-
   left_join(comm_num_dat, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;round&quot; = &quot;round&quot;)) %&gt;%
   mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %&gt;%
   select(-comm_num.x, -comm_num.y)</code></pre>
-<p><strong>Check if all requested variables exist </strong></p>
+<p><strong>Check if all requested variables exist</strong></p>
 <pre class="r"><code>vars &lt;- c(&quot;occup1&quot;, &quot;occup2&quot;, &quot;occupat1&quot;, &quot;occupat2&quot;, &quot;occs&quot;, # outcome
           &quot;female&quot;, &quot;ageyrs&quot;, &quot;conf_age&quot;, &quot;conf_age_flow&quot;, # demographics
           &quot;comm_num&quot;,
@@ -703,15 +742,19 @@ dat_all %&gt;% select(all_of(vars))</code></pre>
 # &quot;occup11&quot;, &quot;occup21&quot;, &quot;occups1&quot;,
 # &quot;addtrain&quot;</code></pre>
 </div>
-<div id="data-cleaning" class="section level4">
-<h4>Data Cleaning</h4>
-<p><strong>1. Create <code>age</code> variable by merging information from <code>conf_age_flow</code>, <code>conf_age</code>, <code>ageyrs</code></strong></p>
+<div id="data-cleaning" class="section level3">
+<h3>Data Cleaning</h3>
+<ol style="list-style-type: decimal">
+<li>Create <code>age</code> variable by merging information from <code>conf_age_flow</code>, <code>conf_age</code>, <code>ageyrs</code></li>
+</ol>
 <pre class="r"><code># Prioritization: `conf_age_flow` -&gt; `conf_age` -&gt; `ageyrs`
 dat_all &lt;-
   dat_all %&gt;% 
   mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %&gt;% 
   mutate(age = ifelse(is.na(age), ageyrs, age))</code></pre>
-<p><strong>2. Filter by age (15-24 year-old respondents) and generate <code>age groups</code> variable (15-17, 18-19, 20-24)</strong></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Filter by age (15-24 year-old respondents) and generate <code>age groups</code> variable (15-17, 18-19, 20-24)</li>
+</ol>
 <pre class="r"><code>dat_all &lt;- 
   dat_all %&gt;%
   filter(15 &lt;= age &amp; age &lt;= 24) %&gt;%
@@ -832,6 +875,43 @@ top_occup_area %&gt;%
   labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Fishing Communities&quot;) +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>top_occup_area %&gt;% 
   filter(area == &quot;periurban&quot;) %&gt;%
   arrange(desc(value)) %&gt;%
@@ -843,6 +923,43 @@ top_occup_area %&gt;%
   labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Periurban Communities&quot;) +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-2.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>top_occup_area %&gt;% 
   filter(area == &quot;rural&quot;) %&gt;%
   arrange(desc(value)) %&gt;%
@@ -854,6 +971,43 @@ top_occup_area %&gt;%
   labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Rural Communities&quot;) +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-3">
+Past versions of unnamed-chunk-8-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-3.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><strong>2. Top occupations for each gender</strong></p>
 <pre class="r"><code>top_occup_gender &lt;- 
   dat_all %&gt;% 
@@ -878,6 +1032,43 @@ top_occup_gender %&gt;%
   labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Male&quot;) +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>top_occup_gender %&gt;% 
   filter(female == &quot;Female&quot;) %&gt;%
   arrange(desc(value)) %&gt;%
@@ -890,6 +1081,43 @@ top_occup_gender %&gt;%
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><strong>3. Top occupations for each age group</strong></p>
 <pre class="r"><code>top_occup_agecat &lt;- 
   dat_all %&gt;% 
@@ -920,7 +1148,120 @@ for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
           legend.title = element_blank())
   print(p)
 }</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="50%" height="50%" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-2">
+Past versions of unnamed-chunk-10-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-3">
+Past versions of unnamed-chunk-10-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>It can be observed from above analysis that the top occupations for AYA include <code>Student</code>, <code>Agriculture for home use/barter</code>, <code>Housework in your own home</code>, <code>Agriculture for selling</code>, <code>Government/clerical/teaching</code>, <code>Trading/Vending</code> and <code>Other</code> (in addition to one community-specific occupation <code>Fishing</code>). Therefore, following analysis will be mainly focused on these occupations.</p>
 </div>
 </div>
@@ -962,6 +1303,43 @@ occup_trend_visit %&gt;%
                           plot.subtitle = element_text(hjust = 0.5),
                           legend.title = element_blank())</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-12-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># for (i in occup_list){
 #   p &lt;- occup_trend_visit %&gt;%
 #     filter(occup1 == i) %&gt;%
@@ -994,6 +1372,43 @@ occup_trend_age %&gt;%
                           plot.subtitle = element_text(hjust = 0.5),
                           legend.title = element_blank())</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># for (i in occup_list){
 #   p &lt;- occup_trend_age %&gt;%
 #     filter(occup1 == i) %&gt;%
@@ -1025,6 +1440,43 @@ occs_word &lt;-
 
 wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = brewer.pal(8, &quot;Dark2&quot;))</code></pre>
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" target="_blank">c0e580c</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="association-between-social-and-structural-transitions-and-occupations" class="section level2">
 <h2>Association between social and structural transitions and occupations</h2>
