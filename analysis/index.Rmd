@@ -8,4 +8,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+Analysis can be found at [link](rakai_occupational_trend_20210713.html)
