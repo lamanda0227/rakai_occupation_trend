@@ -1,0 +1,481 @@
+---
+title: "Occupation Trends over Time in AYA"
+author: "Amanda(Tianyi) Liu"
+date: "13/07/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align="center")
+```
+
+```{r load_packages}
+library(tidyverse)
+library(haven)
+library(ggplot2)
+library(scales)
+library(kableExtra)
+library(knitr)
+```
+
+## Pre-processing
+
+#### Loading Data
+
+```{r load_data}
+dat <- read_dta("../data/all_data_original_id_1_19.dta")
+dat_part_cleaned <- read_dta("../data/R1_R18_partcleaned_incidence_20190913.dta")
+
+colors <- c("#8d96a3", "#edae49", "94bee3", "#5ec0b2", "#9fc96c", "#5ec0b2")
+```
+
+#### Creating full dataset
+
+```{r merge_data}
+# `hivrslt`: 1 2 3 7 8 9
+hivrslt_dat <- 
+  dat_part_cleaned %>% 
+  select(study_id, round, hivrslt) %>%
+  drop_na(hivrslt)
+
+comm_num_dat <- 
+  dat_part_cleaned %>% 
+  select(study_id, round, comm_num) %>%
+  drop_na(comm_num)
+
+# .y: dat_part_cleaned
+# If conflict in data, use data from "all_data_original_id_1_19.dta"
+
+dat_all <- 
+  dat %>%
+  left_join(hivrslt_dat, by = c("study_id" = "study_id", "round" = "round")) %>%
+  mutate(hivrslt = ifelse(is.na(hivrslt.x), hivrslt.y, hivrslt.x)) %>%
+  select(-hivrslt.x, -hivrslt.y)
+
+dat_all <-
+  dat_all %>%  
+  left_join(comm_num_dat, by = c("study_id" = "study_id", "round" = "round")) %>%
+  mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %>%
+  select(-comm_num.x, -comm_num.y)
+```
+
+**Check if all requested variables exist **
+
+```{r filter_var}
+vars <- c("occup1", "occup2", "occupat1", "occupat2", "occs", # outcome
+          "female", "ageyrs", "conf_age", "conf_age_flow", # demographics
+          "comm_num",
+          "radio", "bicycle","car","motorcyc","latrine", # SES
+          "electric", "floor", "othfloor", "roof", "walls",
+          "everpreg", "pregnow", "livechild", "numchild", # pregnancy
+          "evermarr", "currmarr", "polymar", "evermend", # marriage  
+          "pabuseyr", "ppushyr", "pfistyr", "pkickyr", # domestic violence
+          "pweapyr", "patknyr", "pothvyr",
+          "vthrsxpy", "pfocsxpy", "othfsxpy", "othpvyrs",# violence
+          "hivrslt",# hiv result
+          "occupat11", "occupat21", "occup11", "occup21", "occups1", # partner occupation
+          "educate", "educyrs", "school", "finsch", "pregsch", # education
+          "movesch", "menasch", "harasch", "bullwsch", "paresch",
+          "accomsch", "othsch", "spesch", "addtrain")
+
+dat_all %>% select(all_of(vars))
+
+# "occupat1", "occupat2", "occs",
+# "conf_age", "conf_age_flow", visit
+# "livechild", "numchild",
+# "othpvyrs", "hivrslt",
+# "occup11", "occup21", "occups1",
+# "addtrain"
+```
+
+
+#### Data Cleaning
+
+**1. Create `age` variable by merging information from `conf_age_flow`, `conf_age`, `ageyrs`**
+
+```{r}
+# Prioritization: `conf_age_flow` -> `conf_age` -> `ageyrs`
+dat_all <-
+  dat_all %>% 
+  mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %>% 
+  mutate(age = ifelse(is.na(age), ageyrs, age))
+```
+
+**2. Filter by age (15-24 year-old respondents) and generate `age groups` variable (15-17, 18-19, 20-24)**
+
+```{r}
+dat_all <- 
+  dat_all %>%
+  filter(15 <= age & age <= 24) %>%
+  mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %>%
+  mutate(age_cat = labelled(age_cat, c("15-17" = 1, "18-19" = 2, "20-24" = 3)))
+```
+
+**3. Generate `visit` variable **
+
+```{r}
+dat_all <- 
+  dat_all %>% 
+  mutate(visit = str_sub(round, 2, -1)) %>%
+  mutate(visit = as.numeric(visit))
+```
+
+**4. Generate `time period` variable (R1-R9 and R10-R19)**
+
+````{r}
+dat_all <-
+  dat_all %>% 
+  mutate(period = cut(visit, breaks = c(0.5, 9.5, 19.5), labels = c(1, 2))) %>%
+  mutate(period = labelled(period, c("R1-R9" = 1, "R10-R19" = 2)))
+```
+
+**5. Generate `area` variable**
+
+```{r}
+comm_fishing <- c(23, 38, 370, 770, 771, 772, 773, 774, 51, 776)
+area_fishing <- rep("fishing", length(comm_fishing))
+
+comm_rural <- c(3, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 44, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 65, 67, 68, 77, 81, 84, 89, 94, 95, 103, 106, 107, 108, 109, 120, 177, 183, 256, 391, 401, 451, 468, 602, 755, 760, 900, 901)
+area_rural <- rep("rural", length(comm_rural))
+
+comm_periurban <- c(1, 2, 4, 5, 9, 22, 24, 26, 40, 45, 46, 74, 754)
+area_periurban <- rep("periurban", length(comm_periurban))
+
+area <- data.frame("comm_num" = c(comm_fishing, comm_rural, comm_periurban),
+                   "area" = c(area_fishing, area_rural, area_periurban))
+
+dat_all <-
+  dat_all %>%
+  left_join(area)
+```
+
+**6. Categorize occupations for respondents (based on R1-18 part cleaned data)**
+
+```{r}
+# labelling occupations
+occup_lab <- c("Agriculture for home use/barter" = 1,
+               "Agriculture for selling" = 2,
+               "Housework in your own home" = 3,
+               "Housekeeper (for relative or employer)" = 4,
+               "Home brewing" = 5,
+               "Government/clerical/teaching" = 6,
+               "Fishing" = 7,
+               "Student" = 8,
+               "Military/police" = 9,
+               "Shopkeeper" = 10,
+               "Trading/vending" =	11,
+               "Bar worker or owner" = 12,
+               "Trucker" =	13,
+               "Unemployed" = 14,
+               "Other" = 15,
+               "No additional occupation" = 88,
+               "Medical worker (non-government)" = 16,
+               "Casual laborer" =  17,
+               "Waitress/Waiter/restaurant owner" = 18,
+               "Hair dresser/Salon owner" = 19,
+               "Construction (brick maker, builder, porter, painter, roofing)" = 20,
+               "Mechanic (automobiles, bicycles, electronics)" = 21,
+               "Boda Boda" = 22,
+               "Client/Sex worker" = 23,
+               "Sports betting, Gambling machine, Ludo" = 24, 
+               "Don't know" = 97,
+               "Don't know" = 98,
+               "No response" = 99)
+
+dat_all$occup1 <- dat_all$occup1 %>% labelled(occup_lab)
+dat_all$occup2 <- dat_all$occup2 %>% labelled(occup_lab)
+
+# categorize occupation
+occup1_cat <- dat_part_cleaned %>% select(occup1, occup1_cat) %>% unique() %>% arrange(occup1) %>% drop_na(occup1)
+occup2_cat <- occup1_cat %>% rename(occup2 = occup1, occup2_cat = occup1_cat)
+
+occup1_mob <- dat_part_cleaned %>% select(occup1, occup1_mob) %>% unique() %>% arrange(occup1) %>% drop_na(occup1)
+occup2_mob <- occup1_mob %>% rename(occup2 = occup1, occup2_mob = occup1_mob)
+
+dat_all <- 
+  dat_all %>% 
+  left_join(occup1_cat, by = ("occup1" = "occup1")) %>%
+  left_join(occup1_mob, by = ("occup1" = "occup1"))
+
+dat_all <- dat_all %>% 
+  left_join(occup2_cat, by = ("occup2" = "occup2")) %>%
+  left_join(occup2_mob, by = ("occup2" = "occup2"))
+```
+
+**7. Recoding/labelling `hivrslt` variable**
+
+```{r}
+# `hivrslt`: 1 2 3 7 8 9
+hivrslt_lab <- c("Negative" = 1,
+                 "Positive" = 2,
+                 "Indeterminate" = 3,
+                 "Don’t know/Don’t remember" = 7,
+                 "NA" = 8,
+                 "No Response" = 9)
+
+dat_all$hivrslt <- dat_all$hivrslt %>% labelled(hivrslt_lab)
+```
+
+## Preliminary Analysis
+
+#### Visualize general occupation trends
+
+**1. Top occupations for each community type**
+
+```{r}
+top_occup_area <- 
+  dat_all %>% 
+  select (study_id, visit, area, occup1) %>%
+  gather(key, occup, -study_id, -visit, -area) %>%
+  as_factor() %>%
+  mutate(dummy = "yes") %>%
+  spread(occup, dummy) %>%
+  gather(job, value,  -study_id, -visit, -area, -key) %>%
+  drop_na() %>%
+  group_by(area, job) %>%
+  summarise_at(vars(value), funs(sum(.=="yes")))
+
+top_occup_area %>% 
+  filter(area == "fishing") %>%
+  arrange(desc(value)) %>%
+  top_n(n=5) %>%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat="identity", fill="#94bee3", width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = "grey") +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x='', y='', title = "Top 5 Occupations for Fishing Communities") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+top_occup_area %>% 
+  filter(area == "periurban") %>%
+  arrange(desc(value)) %>%
+  top_n(n=5) %>%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat="identity", fill="#94bee3", width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = "grey") +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x='', y='', title = "Top 5 Occupations for Periurban Communities") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+top_occup_area %>% 
+  filter(area == "rural") %>%
+  arrange(desc(value)) %>%
+  top_n(n=5) %>%
+  ggplot(aes(x=factor(job, unique(job)), y=value, fill)) +
+  geom_bar(stat="identity", fill="#94bee3", width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = "grey") +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x='', y='', title = "Top 5 Occupations for Rural Communities") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+```
+
+**2. Top occupations for each gender**
+  
+```{r out.width="50%", out.height="50%"}
+top_occup_gender <- 
+  dat_all %>% 
+  select (study_id, visit, female, occup1) %>%
+  gather(key, occup, -study_id, -visit, -female) %>%
+  as_factor() %>%
+  mutate(dummy = "yes") %>%
+  spread(occup, dummy) %>%
+  gather(job, value,  -study_id, -visit, -female, -key) %>%
+  drop_na() %>%
+  group_by(female, job) %>%
+  summarise_at(vars(value), funs(sum(.=="yes")))
+
+top_occup_gender %>% 
+  filter(female == "Male") %>%
+  arrange(desc(value)) %>%
+  top_n(n=5) %>%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat="identity", fill="#94bee3", width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = "grey") +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x='', y='', title = "Top 5 Occupations for Male") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+top_occup_gender %>% 
+  filter(female == "Female") %>%
+  arrange(desc(value)) %>%
+  top_n(n=5) %>%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat="identity", fill="#94bee3", width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = "grey") +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x='', y='', title = "Top 5 Occupations for Female") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+**3. Top occupations for each age group**
+
+```{r out.width="50%", out.height="50%"}
+top_occup_agecat <- 
+  dat_all %>% 
+  select (study_id, visit, female, age_cat, occup1) %>%
+  gather(key, occup, -study_id, -visit, -age_cat, -female) %>%
+  as_factor() %>%
+  mutate(dummy = "yes") %>%
+  spread(occup, dummy) %>%
+  gather(job, value,  -study_id, -visit, -age_cat, -key, -female) %>%
+  drop_na() %>%
+  group_by(age_cat, job, female) %>%
+  summarise_at(vars(value), funs(sum(.=="yes"))) %>%
+  mutate(frequency = sum(value))
+  
+for (i in c("15-17", "18-19", "20-24")){
+  p <- top_occup_agecat %>% 
+    filter(age_cat == i) %>%
+    arrange(desc(frequency)) %>%
+    head(10) %>%
+    ggplot(aes(x = factor(job, unique(job)), y = value, fill = female, label = value)) +
+    geom_bar(stat = "identity")+
+    geom_text(size = 3, position = position_stack(vjust = 0.5)) +
+    scale_fill_manual(values=colors) +
+    scale_x_discrete(labels = wrap_format(15)) +
+    labs(x='', y='', title = paste("Top Occupations for Respondents Aged", i)) +
+    theme_minimal() + 
+    theme(plot.title = element_text(hjust = 0.5),
+          legend.title = element_blank())
+  print(p)
+}
+```
+
+It can be observed from above analysis that the top occupations for AYA include `Student`, `Agriculture for home use/barter`, `Housework in your own home`, `Agriculture for selling`, `Government/clerical/teaching`, `Trading/Vending` and `Other` (in addition to one community-specific occupation `Fishing`). Therefore, following analysis will be mainly focused on these occupations.
+
+## Describe trends over time in AYA occupations
+
+**Trend by `visit`**
+  
+```{r}
+# Student 8
+# Agriculture for home use/barter 1
+# Housework in your own home 3
+# Agriculture for selling 2
+# Government/clerical/teaching 6
+# Trading/Vending 11
+# Other 15
+# Fishing 7
+
+occup_list <- c("Student", 
+                "Agriculture for home use/barter", 
+                "Housework in your own home", 
+                "Agriculture for selling", 
+                "Government/clerical/teaching", 
+                "Trading/vending", 
+                "Other", 
+                "Fishing")
+```
+
+```{r}
+occup_trend_visit <- dat_all %>% 
+  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %>%
+  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %>% 
+  group_by(occup1, visit, female) %>%
+  count(occup1) %>%
+  as_factor()
+
+occup_trend_visit %>%
+  drop_na(female) %>%
+  group_by(occup1) %>%
+  ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
+  geom_line() + geom_point() + facet_wrap(~occup1) +
+  labs(x='Visit', y='Number of Respondents', title="Trend Over Time for Occupations", subtitle="by visit") +
+  scale_color_manual(values = colors) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+                          plot.subtitle = element_text(hjust = 0.5),
+                          legend.title = element_blank())
+
+# for (i in occup_list){
+#   p <- occup_trend_visit %>%
+#     filter(occup1 == i) %>%
+#     drop_na(female) %>%
+#     ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point()+
+#     labs(x='Visit', y='Number of Respondents', title = paste("Trend Over Time for", i), subtitle = "(by visit)") +
+#     scale_color_manual(values = colors) +
+#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+#                             plot.subtitle = element_text(hjust = 0.5),
+#                             legend.title = element_blank())
+#   print(p)
+# }
+```
+  
+**Trend by `age`**
+  
+```{r}
+occup_trend_age <- dat_all %>% 
+  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %>%
+  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %>% 
+  group_by(occup1, age, female) %>%
+  count(occup1) %>%
+  as_factor()
+
+occup_trend_age %>%
+  drop_na(female) %>%
+  group_by(occup1) %>%
+  ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+  geom_line() + geom_point() + facet_wrap(~occup1) +
+  labs(x='Age', y='Number of Respondents', title="Trend Over Time for Occupations", subtitle="(by age)") +
+  scale_color_manual(values = colors) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+                          plot.subtitle = element_text(hjust = 0.5),
+                          legend.title = element_blank())
+  
+# for (i in occup_list){
+#   p <- occup_trend_age %>%
+#     filter(occup1 == i) %>%
+#     drop_na(female) %>%
+#     ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point() +
+#     labs(x='Age', y='Number of Respondents', title=paste("Trend Over Time for", i), subtitle="(by age)") +
+#     scale_color_manual(values = colors) +
+#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+#                             plot.subtitle = element_text(hjust = 0.5),
+#                             legend.title = element_blank())
+#   
+#   print(p)
+# }
+```
+  
+**Generate a word cloud for occupations described in `Other`**
+
+```{r}
+library(tidytext)
+library(wordcloud)
+library(RColorBrewer)
+library(SnowballC)
+
+occs_word <- 
+  dat_all %>%
+  select(occup1, occs) %>% 
+  filter(occup1 == 15, occs != "NULL") %>% 
+  unnest_tokens(word, occs) %>%
+  mutate(word = wordStem(word)) %>%
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE)
+
+wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = brewer.pal(8, "Dark2"))
+```
+
+## Association between social and structural transitions and occupations
+
+1. Moving (change in `area` in consecutive rounds)
+
+2. Pregnancy (`everpreg = 1` -> `pregnow = 1` -> `pregnow` change from 0 to 1 in consecutive rounds)
+
+3. Drastic change in SES (create a variable called `percentage change in SES` -> when change between consecutive rounds is bigger than 30% (**tbd, reference needed**)? )
+
+4. Have a Child (`livechild` from 0 to 1 in consecutive rounds)
+
+5. Marriage (`evermarr 1 =` -> `currmarr = 1` -> `currmarr` change from 0 to 1 in consecutive rounds)
+
+6. Marital Dissolution (`evermarr 1 =` -> `currmarr = 0` -> `currmarr` change from 1 to 0 in consecutive rounds)
+
+## Assess the role in policies like UPE and USE in any shifts in occupations over time
+
+
+## Variable selection and transformation
+
+## Model fitting
