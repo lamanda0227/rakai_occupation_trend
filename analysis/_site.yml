@@ -1,7 +1,7 @@
-name: "rakai_occupation_trend"
+name: rakai_occupation_trend
 output_dir: ../docs
 navbar:
-  title: "rakai_occupation_trend"
+  title: rakai_occupation_trend
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/lamanda0227/rakai_occupation_trend
 output:
   workflowr::wflow_html:
     toc: yes
