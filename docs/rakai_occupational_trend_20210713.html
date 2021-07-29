@@ -384,7 +384,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-26
+<strong>Last updated:</strong> 2021-07-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -499,22 +499,23 @@ data
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreef0ff5e42f9d008dcc415636dd8b798fdb9c6a9cetargetblankf0ff5e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/f0ff5e42f9d008dcc415636dd8b798fdb9c6a9ce" target="_blank">f0ff5e4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreee17d44520fb2d3a077328c7ddb2a9911d693ef6etargetblanke17d445a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/e17d44520fb2d3a077328c7ddb2a9911d693ef6e" target="_blank">e17d445</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreef0ff5e42f9d008dcc415636dd8b798fdb9c6a9cetargetblankf0ff5e4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreee17d44520fb2d3a077328c7ddb2a9911d693ef6etargetblanke17d445a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/f0ff5e42f9d008dcc415636dd8b798fdb9c6a9ce" target="_blank">f0ff5e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/e17d44520fb2d3a077328c7ddb2a9911d693ef6e" target="_blank">e17d445</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    Literature/
     Ignored:    Logistic/
     Ignored:    Survey/
@@ -534,6 +535,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  .DS_Store
+    Untracked:  analysis/.DS_Store
 
 </code></pre>
 <p>
@@ -572,6 +574,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/e17d44520fb2d3a077328c7ddb2a9911d693ef6e/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">e17d445</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-29
+</td>
+<td>
+wflow_publish("rakai_occupational_trend_20210713.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lamanda0227/rakai_occupation_trend/cc15fa18ec69e03b44f1e3d343fcc2066ac26ee5/docs/rakai_occupational_trend_20210713.html" target="_blank">cc15fa1</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -652,20 +688,23 @@ library(haven)
 library(ggplot2)
 library(scales)
 library(kableExtra)
-library(knitr)</code></pre>
+library(knitr)
+library(magrittr)
+library(epitools)</code></pre>
 <div id="pre-processing" class="section level2">
 <h2>Pre-processing</h2>
 <div id="loading-data" class="section level3">
 <h3>Loading Data</h3>
 <pre class="r"><code>setwd(&quot;/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data&quot;)
 
-dat &lt;- read_dta(&quot;../data/all_data_original_id_1_19.dta&quot;)
-dat_part_cleaned &lt;- read_dta(&quot;../data/R1_R18_partcleaned_incidence_20190913.dta&quot;)
+dat &lt;- read_dta(&quot;all_data_original_id_1_19.dta&quot;)
+dat_part_cleaned &lt;- read_dta(&quot;R1_R18_partcleaned_incidence_20190913.dta&quot;)
 
 colors &lt;- c(&quot;#8d96a3&quot;, &quot;#edae49&quot;, &quot;94bee3&quot;, &quot;#5ec0b2&quot;, &quot;#9fc96c&quot;, &quot;#5ec0b2&quot;)</code></pre>
 </div>
 <div id="creating-full-dataset" class="section level3">
 <h3>Creating full dataset</h3>
+<p>Only rows from the <code>all_data_original_id_1_19.dta</code> dataset will be included in the full dataset.</p>
 <pre class="r"><code># `hivrslt`: 1 2 3 7 8 9
 hivrslt_dat &lt;- 
   dat_part_cleaned %&gt;% 
@@ -690,7 +729,45 @@ dat_all &lt;-
   dat_all %&gt;%  
   left_join(comm_num_dat, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;round&quot; = &quot;round&quot;)) %&gt;%
   mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %&gt;%
-  select(-comm_num.x, -comm_num.y)</code></pre>
+  select(-comm_num.x, -comm_num.y)
+
+dat_all %&gt;% relocate(study_id) %&gt;% group_by(study_id)</code></pre>
+<pre><code># A tibble: 105,060 x 90
+# Groups:   study_id [51,620]
+   study_id round radio bicycle motorcyc   car  roof floor walls electric
+   &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 A000001  R002      1       1        2     2     1     1     2        2
+ 2 A000001  R005      2       1        2     2     1     1     3        2
+ 3 A000001  R006      1       1        2     2     1     1     3        2
+ 4 A000001  R008      1       1        2     2     1     3     3        2
+ 5 A000035  R001      1       1        2     2     1     3     2        2
+ 6 A000035  R002      2       1        2     2     1     3     2        2
+ 7 A000051  R001      2       2        2     2     1     1     3        2
+ 8 A000077  R001      2       2        2     2     1     1     2        2
+ 9 A000077  R002      2       2        2     2     1     1     2        2
+10 A000077  R003      2       2        2     2     1     1     2        2
+# … with 105,050 more rows, and 80 more variables: latrine &lt;dbl&gt;,
+#   othfloor &lt;chr&gt;, ageyrs &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;, currmarr &lt;dbl+lbl&gt;,
+#   occup1 &lt;dbl&gt;, occup2 &lt;dbl&gt;, eversex &lt;dbl&gt;, pregnow &lt;dbl+lbl&gt;,
+#   everpreg &lt;dbl+lbl&gt;, fpusing1 &lt;dbl&gt;, fpusing2 &lt;dbl&gt;, fpusing3 &lt;dbl&gt;,
+#   fpusing4 &lt;dbl&gt;, fpusing5 &lt;dbl&gt;, fpusing6 &lt;dbl&gt;, fpusing7 &lt;dbl&gt;,
+#   fpusing8 &lt;dbl&gt;, fpusing9 &lt;dbl&gt;, polymar &lt;dbl&gt;, sexyear &lt;dbl&gt;,
+#   sexp1yr &lt;dbl&gt;, livechild &lt;dbl&gt;, occs &lt;chr&gt;, occup11 &lt;dbl&gt;, occup21 &lt;dbl&gt;,
+#   othfp &lt;chr&gt;, alclstmo &lt;chr&gt;, sexp1out &lt;dbl&gt;, sexpsxm &lt;dbl&gt;,
+#   pabuseyr &lt;dbl+lbl&gt;, ppushyr &lt;dbl+lbl&gt;, pfistyr &lt;dbl+lbl&gt;,
+#   pkickyr &lt;dbl+lbl&gt;, pweapyr &lt;dbl+lbl&gt;, patknyr &lt;dbl+lbl&gt;,
+#   vthrsxpy &lt;dbl+lbl&gt;, othfsxpy &lt;dbl+lbl&gt;, pfocsxpy &lt;dbl+lbl&gt;, occups1 &lt;chr&gt;,
+#   conf_age &lt;dbl&gt;, dissed12m &lt;chr&gt;, disins12m &lt;chr&gt;, forcsxtn &lt;chr&gt;,
+#   heardarv &lt;chr&gt;, numbirth &lt;dbl&gt;, fpusng10 &lt;dbl&gt;, fpusng11 &lt;dbl&gt;,
+#   fpusng12 &lt;dbl&gt;, numchild &lt;dbl&gt;, occupat11 &lt;chr&gt;, occupat1 &lt;chr&gt;,
+#   occupat2 &lt;chr&gt;, smoke &lt;dbl&gt;, circhusb &lt;dbl&gt;, occupat21 &lt;chr&gt;,
+#   sexp1yrb &lt;chr&gt;, educate &lt;dbl+lbl&gt;, educyrs &lt;dbl&gt;, ag1stsex &lt;dbl&gt;,
+#   numpreg &lt;chr&gt;, evermend &lt;dbl+lbl&gt;, pothvyr &lt;dbl+lbl&gt;, school &lt;dbl+lbl&gt;,
+#   finsch &lt;dbl+lbl&gt;, pregsch &lt;dbl+lbl&gt;, movesch &lt;dbl+lbl&gt;, menasch &lt;dbl+lbl&gt;,
+#   harasch &lt;dbl+lbl&gt;, bullwsch &lt;dbl+lbl&gt;, paresch &lt;dbl+lbl&gt;,
+#   accomsch &lt;dbl+lbl&gt;, othsch &lt;dbl+lbl&gt;, spesch &lt;chr&gt;, addtrain &lt;dbl&gt;,
+#   othpvyrs &lt;chr&gt;, female &lt;dbl+lbl&gt;, conf_age_flow &lt;dbl&gt;, hivrslt &lt;dbl&gt;,
+#   comm_num &lt;dbl&gt;</code></pre>
 <p><strong>Check if all requested variables exist</strong></p>
 <pre class="r"><code>vars &lt;- c(&quot;occup1&quot;, &quot;occup2&quot;, &quot;occupat1&quot;, &quot;occupat2&quot;, &quot;occs&quot;, # outcome
           &quot;female&quot;, &quot;ageyrs&quot;, &quot;conf_age&quot;, &quot;conf_age_flow&quot;, # demographics
@@ -760,17 +837,23 @@ dat_all &lt;-
   filter(15 &lt;= age &amp; age &lt;= 24) %&gt;%
   mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %&gt;%
   mutate(age_cat = labelled(age_cat, c(&quot;15-17&quot; = 1, &quot;18-19&quot; = 2, &quot;20-24&quot; = 3)))</code></pre>
-<p><strong>3. Generate <code>visit</code> variable </strong></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Generate <code>visit</code> variable</li>
+</ol>
 <pre class="r"><code>dat_all &lt;- 
   dat_all %&gt;% 
   mutate(visit = str_sub(round, 2, -1)) %&gt;%
   mutate(visit = as.numeric(visit))</code></pre>
-<p><strong>4. Generate <code>time period</code> variable (R1-R9 and R10-R19)</strong></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Generate <code>time period</code> variable (R1-R9 and R10-R19)</li>
+</ol>
 <pre class="r"><code>dat_all &lt;-
   dat_all %&gt;% 
   mutate(period = cut(visit, breaks = c(0.5, 9.5, 19.5), labels = c(1, 2))) %&gt;%
   mutate(period = labelled(period, c(&quot;R1-R9&quot; = 1, &quot;R10-R19&quot; = 2)))</code></pre>
-<p><strong>5. Generate <code>area</code> variable</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Generate <code>area</code> variable</li>
+</ol>
 <pre class="r"><code>comm_fishing &lt;- c(23, 38, 370, 770, 771, 772, 773, 774, 51, 776)
 area_fishing &lt;- rep(&quot;fishing&quot;, length(comm_fishing))
 
@@ -786,7 +869,9 @@ area &lt;- data.frame(&quot;comm_num&quot; = c(comm_fishing, comm_rural, comm_pe
 dat_all &lt;-
   dat_all %&gt;%
   left_join(area)</code></pre>
-<p><strong>6. Categorize occupations for respondents (based on R1-18 part cleaned data)</strong></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Categorize occupations for respondents (based on R1-18 part cleaned data)</li>
+</ol>
 <pre class="r"><code># labelling occupations
 occup_lab &lt;- c(&quot;Agriculture for home use/barter&quot; = 1,
                &quot;Agriculture for selling&quot; = 2,
@@ -835,7 +920,9 @@ dat_all &lt;-
 dat_all &lt;- dat_all %&gt;% 
   left_join(occup2_cat, by = (&quot;occup2&quot; = &quot;occup2&quot;)) %&gt;%
   left_join(occup2_mob, by = (&quot;occup2&quot; = &quot;occup2&quot;))</code></pre>
-<p><strong>7. Recoding/labelling <code>hivrslt</code> variable</strong></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Recoding/labelling <code>hivrslt</code> variable</li>
+</ol>
 <pre class="r"><code># `hivrslt`: 1 2 3 7 8 9
 hivrslt_lab &lt;- c(&quot;Negative&quot; = 1,
                  &quot;Positive&quot; = 2,
@@ -845,13 +932,79 @@ hivrslt_lab &lt;- c(&quot;Negative&quot; = 1,
                  &quot;No Response&quot; = 9)
 
 dat_all$hivrslt &lt;- dat_all$hivrslt %&gt;% labelled(hivrslt_lab)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Creating <code>SES</code> variable</li>
+</ol>
+<pre class="r"><code>setwd(&quot;/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data&quot;)
+
+## 1. Select data
+dat_ses &lt;- dat_all %&gt;%
+  select(study_id, visit, radio, bicycle, motorcyc, car, latrine, electric, roof, floor, walls)
+
+## 2. Recode
+dat_ses &lt;- dat_ses %&gt;% 
+  mutate(radio_r = ifelse(radio == 1, 1,ifelse(radio %in% c(2,3,5), 0, NA)),
+         bicycle_r = ifelse(bicycle == 1, 1,ifelse(bicycle %in% c(2,3,5), 0, NA)),
+         car_r = ifelse(car == 1, 1,ifelse(car %in% c(2,3,5), 0, NA)),
+         motorcyc_r = ifelse(motorcyc == 1, 1,ifelse(motorcyc %in% c(2,3,5), 0, NA)),
+         latrine_r = ifelse(latrine == 1, 1,ifelse(latrine %in% c(2,3,5), 0, NA)),
+         electric_r = ifelse(electric == 1, 1,ifelse(electric %in% c(2,3,5), 0, NA)),
+         roof_r = ifelse(roof %in% c(1,3), 1,ifelse(roof %in% c(2,4,5), 0, NA)),
+         floor_r = ifelse(floor %in% c(2,3), 1,ifelse(floor %in% c(1,5), 0, NA)),
+         walls_r = ifelse(walls %in% c(3), 1,ifelse(walls %in% c(1,2,4,5), 0, NA)))
+
+## 3. Calculate raw SES index
+df_asset_data &lt;- dat_ses %&gt;% 
+  select(study_id, visit, radio_r, bicycle_r, motorcyc_r, car_r, latrine_r, electric_r, roof_r, floor_r, walls_r) %&gt;% 
+  pivot_longer(cols = radio_r:walls_r, names_to = &quot;variable&quot;, values_to = &quot;status&quot;) %&gt;%
+  arrange(study_id, visit)
+
+df_pca_overall &lt;- readxl::read_xlsx(&quot;./PCA_weights.xlsx&quot;) %&gt;%
+  select(variable, Overall) %&gt;%
+  rename(score = Overall) 
+
+df_merge_overall &lt;- left_join(df_asset_data, df_pca_overall, by = &#39;variable&#39;) %&gt;%
+  arrange(study_id, visit) %&gt;%
+  mutate(SES = status * score) 
+
+df_ovSES_data &lt;- df_merge_overall %&gt;%
+  arrange(study_id, visit) %&gt;% 
+  group_by(study_id, visit) %&gt;% 
+  summarise(SES = sum(SES), na.rm = F) %&gt;%
+  ungroup()
+
+df_SES_data &lt;- left_join(df_ovSES_data, dat_ses, by = c(&#39;study_id&#39;, &#39;visit&#39;)) %&gt;%
+  mutate(SES = structure(SES, label = &quot;raw SES score&quot;)) %&gt;%
+  arrange(study_id, visit) %&gt;%
+  select(-na.rm)
+
+## 4. Create SES z-score and 4-level SES categorical variable
+df_cut_overall &lt;- readxl::read_xlsx(&quot;./SES_cutpoints.xlsx&quot;) %&gt;%
+  select(cutpoints, Overall) %&gt;%
+  pivot_wider(names_from = cutpoints, values_from = Overall) %&gt;%
+  rename(Q1_zovSES = Q1_stdSES, Q2_zovSES = Q2_stdSES, Q3_zovSES = Q3_stdSES)
+
+df_SES_data &lt;- df_SES_data %&gt;%
+  mutate(zovSES = structure((SES - df_cut_overall$mean_SES) / df_cut_overall$sd_SES, label = &quot;Overall standardized SES&quot;), 
+         SEScat = case_when(zovSES &lt;= df_cut_overall$Q1_zovSES ~ 0,
+                            zovSES &gt; df_cut_overall$Q1_zovSES &amp; zovSES &lt;= df_cut_overall$Q2_zovSES ~ 1,
+                            zovSES &gt; df_cut_overall$Q2_zovSES &amp; zovSES &lt;= df_cut_overall$Q3_zovSES ~ 2,
+                            zovSES &gt; df_cut_overall$Q3_zovSES ~ 3)) %&gt;%
+  #mutate(SEScat = structure(SEScat, label = &quot;zovSES categories&quot;))
+  mutate(SEScat = structure(ordered(SEScat, labels = c(&quot;lowest&quot;, &quot;low-middle&quot;, &quot;high-middle&quot;, &quot;highest&quot;)), label = &quot;zovSES categories&quot;))
+
+## 5. Merge into large dataset
+df_SES_data &lt;- df_SES_data %&gt;% select(study_id, visit, SES, SEScat)
+dat_all &lt;- dat_all %&gt;% left_join(df_SES_data, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;visit&quot; = &quot;visit&quot;))</code></pre>
 </div>
 </div>
-<div id="preliminary-analysis" class="section level2">
-<h2>Preliminary Analysis</h2>
-<div id="visualize-general-occupation-trends" class="section level4">
-<h4>Visualize general occupation trends</h4>
-<p><strong>1. Top occupations for each community type</strong></p>
+<div id="describe-trends-over-time-in-aya-occupations" class="section level2">
+<h2>Describe trends over time in AYA occupations</h2>
+<div id="visualize-general-occupation-trends" class="section level3">
+<h3>Visualize general occupation trends</h3>
+<ol style="list-style-type: decimal">
+<li>Top occupations for each community type</li>
+</ol>
 <pre class="r"><code>top_occup_area &lt;- 
   dat_all %&gt;% 
   select (study_id, visit, area, occup1) %&gt;%
@@ -874,164 +1027,7 @@ top_occup_area %&gt;%
   scale_x_discrete(labels = wrap_format(20)) +
   labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Fishing Communities&quot;) +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-1.png" target="_blank">c0e580c</a>
-</td>
-<td>
-Amanda
-</td>
-<td>
-2021-07-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>top_occup_area %&gt;% 
-  filter(area == &quot;periurban&quot;) %&gt;%
-  arrange(desc(value)) %&gt;%
-  top_n(n=5) %&gt;%
-  ggplot(aes(x=factor(job, unique(job)), y=value)) +
-  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
-  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
-  scale_x_discrete(labels = wrap_format(20)) +
-  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Periurban Communities&quot;) +
-  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-2.png" target="_blank">c0e580c</a>
-</td>
-<td>
-Amanda
-</td>
-<td>
-2021-07-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>top_occup_area %&gt;% 
-  filter(area == &quot;rural&quot;) %&gt;%
-  arrange(desc(value)) %&gt;%
-  top_n(n=5) %&gt;%
-  ggplot(aes(x=factor(job, unique(job)), y=value, fill)) +
-  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
-  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
-  scale_x_discrete(labels = wrap_format(20)) +
-  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Rural Communities&quot;) +
-  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-3">
-Past versions of unnamed-chunk-8-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-8-3.png" target="_blank">c0e580c</a>
-</td>
-<td>
-Amanda
-</td>
-<td>
-2021-07-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><strong>2. Top occupations for each gender</strong></p>
-<pre class="r"><code>top_occup_gender &lt;- 
-  dat_all %&gt;% 
-  select (study_id, visit, female, occup1) %&gt;%
-  gather(key, occup, -study_id, -visit, -female) %&gt;%
-  as_factor() %&gt;%
-  mutate(dummy = &quot;yes&quot;) %&gt;%
-  spread(occup, dummy) %&gt;%
-  gather(job, value,  -study_id, -visit, -female, -key) %&gt;%
-  drop_na() %&gt;%
-  group_by(female, job) %&gt;%
-  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;)))
-
-top_occup_gender %&gt;% 
-  filter(female == &quot;Male&quot;) %&gt;%
-  arrange(desc(value)) %&gt;%
-  top_n(n=5) %&gt;%
-  ggplot(aes(x=factor(job, unique(job)), y=value)) +
-  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
-  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
-  scale_x_discrete(labels = wrap_format(20)) +
-  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Male&quot;) +
-  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
 Past versions of unnamed-chunk-9-1.png
@@ -1069,18 +1065,17 @@ Amanda
 </table>
 </div>
 </div>
-<pre class="r"><code>top_occup_gender %&gt;% 
-  filter(female == &quot;Female&quot;) %&gt;%
+<pre class="r"><code>top_occup_area %&gt;% 
+  filter(area == &quot;periurban&quot;) %&gt;%
   arrange(desc(value)) %&gt;%
   top_n(n=5) %&gt;%
   ggplot(aes(x=factor(job, unique(job)), y=value)) +
   geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
   geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
   scale_x_discrete(labels = wrap_format(20)) +
-  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Female&quot;) +
-  theme_minimal() + 
-  theme(plot.title = element_text(hjust = 0.5))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Periurban Communities&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
 Past versions of unnamed-chunk-9-2.png
@@ -1118,37 +1113,43 @@ Amanda
 </table>
 </div>
 </div>
-<p><strong>3. Top occupations for each age group</strong></p>
-<pre class="r"><code>top_occup_agecat &lt;- 
+<pre class="r"><code>top_occup_area %&gt;% 
+  filter(area == &quot;rural&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value, fill)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Rural Communities&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-3.png" width="816" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Top occupations for each gender</li>
+</ol>
+<pre class="r"><code>top_occup_gender &lt;- 
   dat_all %&gt;% 
-  select (study_id, visit, female, age_cat, occup1) %&gt;%
-  gather(key, occup, -study_id, -visit, -age_cat, -female) %&gt;%
+  select (study_id, visit, female, occup1) %&gt;%
+  gather(key, occup, -study_id, -visit, -female) %&gt;%
   as_factor() %&gt;%
   mutate(dummy = &quot;yes&quot;) %&gt;%
   spread(occup, dummy) %&gt;%
-  gather(job, value,  -study_id, -visit, -age_cat, -key, -female) %&gt;%
+  gather(job, value,  -study_id, -visit, -female, -key) %&gt;%
   drop_na() %&gt;%
-  group_by(age_cat, job, female) %&gt;%
-  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;))) %&gt;%
-  mutate(frequency = sum(value))
-  
-for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
-  p &lt;- top_occup_agecat %&gt;% 
-    filter(age_cat == i) %&gt;%
-    arrange(desc(frequency)) %&gt;%
-    head(10) %&gt;%
-    ggplot(aes(x = factor(job, unique(job)), y = value, fill = female, label = value)) +
-    geom_bar(stat = &quot;identity&quot;)+
-    geom_text(size = 3, position = position_stack(vjust = 0.5)) +
-    scale_fill_manual(values=colors) +
-    scale_x_discrete(labels = wrap_format(15)) +
-    labs(x=&#39;&#39;, y=&#39;&#39;, title = paste(&quot;Top Occupations for Respondents Aged&quot;, i)) +
-    theme_minimal() + 
-    theme(plot.title = element_text(hjust = 0.5),
-          legend.title = element_blank())
-  print(p)
-}</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+  group_by(female, job) %&gt;%
+  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;)))
+
+top_occup_gender %&gt;% 
+  filter(female == &quot;Male&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Male&quot;) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
 Past versions of unnamed-chunk-10-1.png
@@ -1186,7 +1187,18 @@ Amanda
 </table>
 </div>
 </div>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top_occup_gender %&gt;% 
+  filter(female == &quot;Female&quot;) %&gt;%
+  arrange(desc(value)) %&gt;%
+  top_n(n=5) %&gt;%
+  ggplot(aes(x=factor(job, unique(job)), y=value)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;#94bee3&quot;, width=0.6) +
+  geom_text(aes(label=value), vjust = -1, color = &quot;grey&quot;) +
+  scale_x_discrete(labels = wrap_format(20)) +
+  labs(x=&#39;&#39;, y=&#39;&#39;, title = &quot;Top 5 Occupations for Female&quot;) +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-2">
 Past versions of unnamed-chunk-10-2.png
@@ -1224,50 +1236,46 @@ Amanda
 </table>
 </div>
 </div>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-3">
-Past versions of unnamed-chunk-10-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-3.png" target="_blank">c0e580c</a>
-</td>
-<td>
-Amanda
-</td>
-<td>
-2021-07-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Top occupations for each age group</li>
+</ol>
+<pre class="r"><code>top_occup_agecat &lt;- 
+  dat_all %&gt;% 
+  select (study_id, visit, female, age_cat, occup1) %&gt;%
+  gather(key, occup, -study_id, -visit, -age_cat, -female) %&gt;%
+  as_factor() %&gt;%
+  mutate(dummy = &quot;yes&quot;) %&gt;%
+  spread(occup, dummy) %&gt;%
+  gather(job, value,  -study_id, -visit, -age_cat, -key, -female) %&gt;%
+  drop_na() %&gt;%
+  group_by(age_cat, job, female) %&gt;%
+  summarise_at(vars(value), funs(sum(.==&quot;yes&quot;))) %&gt;%
+  mutate(frequency = sum(value))
+  
+for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
+  p &lt;- top_occup_agecat %&gt;% 
+    filter(age_cat == i) %&gt;%
+    arrange(desc(frequency)) %&gt;%
+    head(10) %&gt;%
+    ggplot(aes(x = factor(job, unique(job)), y = value, fill = female, label = value)) +
+    geom_bar(stat = &quot;identity&quot;)+
+    geom_text(size = 3, position = position_stack(vjust = 0.5)) +
+    scale_fill_manual(values=colors) +
+    scale_x_discrete(labels = wrap_format(15)) +
+    labs(x=&#39;&#39;, y=&#39;&#39;, title = paste(&quot;Top Occupations for Respondents Aged&quot;, i)) +
+    theme_minimal() + 
+    theme(plot.title = element_text(hjust = 0.5),
+          legend.title = element_blank())
+  print(p)
+}</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-1.png" width="816" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-2.png" width="816" style="display: block; margin: auto;" /><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-3.png" width="816" style="display: block; margin: auto;" /></p>
 <p>It can be observed from above analysis that the top occupations for AYA include <code>Student</code>, <code>Agriculture for home use/barter</code>, <code>Housework in your own home</code>, <code>Agriculture for selling</code>, <code>Government/clerical/teaching</code>, <code>Trading/Vending</code> and <code>Other</code> (in addition to one community-specific occupation <code>Fishing</code>). Therefore, following analysis will be mainly focused on these occupations.</p>
 </div>
-</div>
-<div id="describe-trends-over-time-in-aya-occupations" class="section level2">
-<h2>Describe trends over time in AYA occupations</h2>
-<p><strong>Trend by <code>visit</code></strong></p>
+<div id="trends-over-time-in-aya-occupations" class="section level3">
+<h3>Trends over time in AYA occupations</h3>
+<ol style="list-style-type: decimal">
+<li>Trend by <code>visit</code></li>
+</ol>
 <pre class="r"><code># Student 8
 # Agriculture for home use/barter 1
 # Housework in your own home 3
@@ -1302,76 +1310,7 @@ occup_trend_visit %&gt;%
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
                           plot.subtitle = element_text(hjust = 0.5),
                           legend.title = element_blank())</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c0e580cd4f4bdce27b598b8e417ac1d72a9a936f/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-12-1.png" target="_blank">c0e580c</a>
-</td>
-<td>
-Amanda
-</td>
-<td>
-2021-07-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code># for (i in occup_list){
-#   p &lt;- occup_trend_visit %&gt;%
-#     filter(occup1 == i) %&gt;%
-#     drop_na(female) %&gt;%
-#     ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
-#     geom_line() + geom_point()+
-#     labs(x=&#39;Visit&#39;, y=&#39;Number of Respondents&#39;, title = paste(&quot;Trend Over Time for&quot;, i), subtitle = &quot;(by visit)&quot;) +
-#     scale_color_manual(values = colors) +
-#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
-#                             plot.subtitle = element_text(hjust = 0.5),
-#                             legend.title = element_blank())
-#   print(p)
-# }</code></pre>
-<p><strong>Trend by <code>age</code></strong></p>
-<pre class="r"><code>occup_trend_age &lt;- dat_all %&gt;% 
-  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %&gt;%
-  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %&gt;% 
-  group_by(occup1, age, female) %&gt;%
-  count(occup1) %&gt;%
-  as_factor()
-
-occup_trend_age %&gt;%
-  drop_na(female) %&gt;%
-  group_by(occup1) %&gt;%
-  ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
-  geom_line() + geom_point() + facet_wrap(~occup1) +
-  labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=&quot;Trend Over Time for Occupations&quot;, subtitle=&quot;(by age)&quot;) +
-  scale_color_manual(values = colors) +
-  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
-                          plot.subtitle = element_text(hjust = 0.5),
-                          legend.title = element_blank())</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
 Past versions of unnamed-chunk-13-1.png
@@ -1410,36 +1349,39 @@ Amanda
 </div>
 </div>
 <pre class="r"><code># for (i in occup_list){
-#   p &lt;- occup_trend_age %&gt;%
+#   p &lt;- occup_trend_visit %&gt;%
 #     filter(occup1 == i) %&gt;%
 #     drop_na(female) %&gt;%
-#     ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
-#     geom_line() + geom_point() +
-#     labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=paste(&quot;Trend Over Time for&quot;, i), subtitle=&quot;(by age)&quot;) +
+#     ggplot(aes(x=visit, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point()+
+#     labs(x=&#39;Visit&#39;, y=&#39;Number of Respondents&#39;, title = paste(&quot;Trend Over Time for&quot;, i), subtitle = &quot;(by visit)&quot;) +
 #     scale_color_manual(values = colors) +
 #     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
 #                             plot.subtitle = element_text(hjust = 0.5),
 #                             legend.title = element_blank())
-#   
 #   print(p)
 # }</code></pre>
-<p><strong>Generate a word cloud for occupations described in <code>Other</code></strong></p>
-<pre class="r"><code>library(tidytext)
-library(wordcloud)
-library(RColorBrewer)
-library(SnowballC)
+<ol start="2" style="list-style-type: decimal">
+<li>Trend by <code>age</code></li>
+</ol>
+<pre class="r"><code>occup_trend_age &lt;- dat_all %&gt;% 
+  select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %&gt;%
+  filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %&gt;% 
+  group_by(occup1, age, female) %&gt;%
+  count(occup1) %&gt;%
+  as_factor()
 
-occs_word &lt;- 
-  dat_all %&gt;%
-  select(occup1, occs) %&gt;% 
-  filter(occup1 == 15, occs != &quot;NULL&quot;) %&gt;% 
-  unnest_tokens(word, occs) %&gt;%
-  mutate(word = wordStem(word)) %&gt;%
-  anti_join(stop_words) %&gt;% 
-  count(word, sort = TRUE)
-
-wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = brewer.pal(8, &quot;Dark2&quot;))</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+occup_trend_age %&gt;%
+  drop_na(female) %&gt;%
+  group_by(occup1) %&gt;%
+  ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+  geom_line() + geom_point() + facet_wrap(~occup1) +
+  labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=&quot;Trend Over Time for Occupations&quot;, subtitle=&quot;(by age)&quot;) +
+  scale_color_manual(values = colors) +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+                          plot.subtitle = element_text(hjust = 0.5),
+                          legend.title = element_blank())</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
 Past versions of unnamed-chunk-14-1.png
@@ -1477,11 +1419,162 @@ Amanda
 </table>
 </div>
 </div>
+<pre class="r"><code># for (i in occup_list){
+#   p &lt;- occup_trend_age %&gt;%
+#     filter(occup1 == i) %&gt;%
+#     drop_na(female) %&gt;%
+#     ggplot(aes(x=age, y=n, group=factor(female), color=factor(female))) +
+#     geom_line() + geom_point() +
+#     labs(x=&#39;Age&#39;, y=&#39;Number of Respondents&#39;, title=paste(&quot;Trend Over Time for&quot;, i), subtitle=&quot;(by age)&quot;) +
+#     scale_color_manual(values = colors) +
+#     theme_minimal() + theme(plot.title = element_text(hjust = 0.5),
+#                             plot.subtitle = element_text(hjust = 0.5),
+#                             legend.title = element_blank())
+#   
+#   print(p)
+# }</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Word cloud for occupations described in <code>Other</code></li>
+</ol>
+<pre class="r"><code>library(tidytext)
+library(wordcloud)
+library(RColorBrewer)
+library(SnowballC)
+
+occs_word &lt;- 
+  dat_all %&gt;%
+  select(occup1, occs) %&gt;% 
+  filter(occup1 == 15, occs != &quot;NULL&quot;) %&gt;% 
+  unnest_tokens(word, occs) %&gt;%
+  mutate(word = wordStem(word)) %&gt;%
+  anti_join(stop_words) %&gt;% 
+  count(word, sort = TRUE)
+
+wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = brewer.pal(8, &quot;Dark2&quot;))</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-15-1.png" width="816" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="association-between-social-and-structural-transitions-and-occupations" class="section level2">
 <h2>Association between social and structural transitions and occupations</h2>
+<p>In the following section, for every respondent, only changes in consecutive rounds will be examined. Therefore, a new dataset with only consecutive rounds information is created for the association analysis. A new <code>include</code> variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.</p>
+<pre class="r"><code>dat_assoc &lt;- 
+  dat_all %&gt;%
+  group_by(study_id) %&gt;%
+  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
+  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
+  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
+  filter(include == 1) %&gt;%
+  select(-visit_prev_change, -visit_next_change, -include)
+dat_assoc</code></pre>
+<pre><code># A tibble: 71,006 x 101
+# Groups:   study_id [23,718]
+   round radio bicycle motorcyc   car  roof floor walls electric latrine
+   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1 R005      2       1        2     2     1     1     3        2       1
+ 2 R006      1       1        2     2     1     1     3        2       1
+ 3 R001      1       1        2     2     1     3     2        2       1
+ 4 R002      2       1        2     2     1     3     2        2       1
+ 5 R001      2       2        2     2     1     1     2        2       1
+ 6 R002      2       2        2     2     1     1     2        2       1
+ 7 R003      2       2        2     2     1     1     2        2       1
+ 8 R003      1       1        2     2     1     1     2        2       1
+ 9 R004      1       1        2     2     1     1     2        2       1
+10 R005      1       1        2     2     1     1     3        2       1
+# … with 70,996 more rows, and 91 more variables: othfloor &lt;chr&gt;,
+#   study_id &lt;chr&gt;, ageyrs &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;, currmarr &lt;dbl+lbl&gt;,
+#   occup1 &lt;dbl+lbl&gt;, occup2 &lt;dbl+lbl&gt;, eversex &lt;dbl&gt;, pregnow &lt;dbl+lbl&gt;,
+#   everpreg &lt;dbl+lbl&gt;, fpusing1 &lt;dbl&gt;, fpusing2 &lt;dbl&gt;, fpusing3 &lt;dbl&gt;,
+#   fpusing4 &lt;dbl&gt;, fpusing5 &lt;dbl&gt;, fpusing6 &lt;dbl&gt;, fpusing7 &lt;dbl&gt;,
+#   fpusing8 &lt;dbl&gt;, fpusing9 &lt;dbl&gt;, polymar &lt;dbl&gt;, sexyear &lt;dbl&gt;,
+#   sexp1yr &lt;dbl&gt;, livechild &lt;dbl&gt;, occs &lt;chr&gt;, occup11 &lt;dbl&gt;, occup21 &lt;dbl&gt;,
+#   othfp &lt;chr&gt;, alclstmo &lt;chr&gt;, sexp1out &lt;dbl&gt;, sexpsxm &lt;dbl&gt;,
+#   pabuseyr &lt;dbl+lbl&gt;, ppushyr &lt;dbl+lbl&gt;, pfistyr &lt;dbl+lbl&gt;,
+#   pkickyr &lt;dbl+lbl&gt;, pweapyr &lt;dbl+lbl&gt;, patknyr &lt;dbl+lbl&gt;,
+#   vthrsxpy &lt;dbl+lbl&gt;, othfsxpy &lt;dbl+lbl&gt;, pfocsxpy &lt;dbl+lbl&gt;, occups1 &lt;chr&gt;,
+#   conf_age &lt;dbl&gt;, dissed12m &lt;chr&gt;, disins12m &lt;chr&gt;, forcsxtn &lt;chr&gt;,
+#   heardarv &lt;chr&gt;, numbirth &lt;dbl&gt;, fpusng10 &lt;dbl&gt;, fpusng11 &lt;dbl&gt;,
+#   fpusng12 &lt;dbl&gt;, numchild &lt;dbl&gt;, occupat11 &lt;chr&gt;, occupat1 &lt;chr&gt;,
+#   occupat2 &lt;chr&gt;, smoke &lt;dbl&gt;, circhusb &lt;dbl&gt;, occupat21 &lt;chr&gt;,
+#   sexp1yrb &lt;chr&gt;, educate &lt;dbl+lbl&gt;, educyrs &lt;dbl&gt;, ag1stsex &lt;dbl&gt;,
+#   numpreg &lt;chr&gt;, evermend &lt;dbl+lbl&gt;, pothvyr &lt;dbl+lbl&gt;, school &lt;dbl+lbl&gt;,
+#   finsch &lt;dbl+lbl&gt;, pregsch &lt;dbl+lbl&gt;, movesch &lt;dbl+lbl&gt;, menasch &lt;dbl+lbl&gt;,
+#   harasch &lt;dbl+lbl&gt;, bullwsch &lt;dbl+lbl&gt;, paresch &lt;dbl+lbl&gt;,
+#   accomsch &lt;dbl+lbl&gt;, othsch &lt;dbl+lbl&gt;, spesch &lt;chr&gt;, addtrain &lt;dbl&gt;,
+#   othpvyrs &lt;chr&gt;, female &lt;dbl+lbl&gt;, conf_age_flow &lt;dbl&gt;, hivrslt &lt;dbl+lbl&gt;,
+#   comm_num &lt;dbl&gt;, age &lt;dbl&gt;, age_cat &lt;int+lbl&gt;, visit &lt;dbl&gt;,
+#   period &lt;int+lbl&gt;, area &lt;chr&gt;, occup1_cat &lt;dbl+lbl&gt;, occup1_mob &lt;dbl+lbl&gt;,
+#   occup2_cat &lt;dbl+lbl&gt;, occup2_mob &lt;dbl+lbl&gt;, SES &lt;dbl&gt;, SEScat &lt;ord&gt;</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Moving (change in <code>area</code> in consecutive rounds)</p></li>
+<li>Moving (change in <code>area</code> in consecutive rounds)</li>
+</ol>
+<pre class="r"><code>dat_move_occup &lt;-
+  dat_assoc %&gt;%
+  select(study_id, visit, area, occup1) %&gt;%
+  group_by(study_id) %&gt;%
+  drop_na(area) %&gt;%
+  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
+  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
+  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
+  filter(include == 1) %&gt;%
+  select(-visit_prev_change, -visit_next_change, -include)
+
+dat_move_occup &lt;-
+  dat_move_occup %&gt;%
+  mutate(area_change = ifelse(area != lag(area, default = area[1]), &quot;Moved&quot;, &quot;Not Moved&quot;)) %&gt;%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), &quot;Changed Occupation&quot;, &quot;Did not change occupation&quot;)) %&gt;%
+  slice(-1) %&gt;%
+  ungroup()
+
+dat_move_occup &lt;-
+  dat_move_occup %&gt;% select(area_change, occup1_change)</code></pre>
+<ul>
+<li><p>Let OR = the odds ratio of change occupation for those moved v.s. those who did not move in consecutive rounds</p></li>
+<li><p><span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
+<li><p>Contingency table</p></li>
+</ul>
+<pre class="r"><code>table_move_occup &lt;- table(dat_move_occup)
+addmargins(table_move_occup)</code></pre>
+<pre><code>           occup1_change
+area_change Changed Occupation Did not change occupation   Sum
+  Moved                    170                       115   285
+  Not Moved              15446                     27029 42475
+  Sum                    15616                     27144 42760</code></pre>
+<pre class="r"><code>mosaicplot(t(table_move_occup), 
+           col = c(&quot;firebrick&quot;, &quot;goldenrod1&quot;), 
+           cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;Moved&quot;, main = &quot;&quot;)</code></pre>
+<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-18-1.png" width="816" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Use Pearson Chi-squared to test for association</li>
+</ul>
+<pre class="r"><code>oddsratio(table_move_occup, method = &quot;wald&quot;)</code></pre>
+<pre><code>$data
+           occup1_change
+area_change Changed Occupation Did not change occupation Total
+  Moved                    170                       115   285
+  Not Moved              15446                     27029 42475
+  Total                  15616                     27144 42760
+
+$measure
+           odds ratio with 95% C.I.
+area_change estimate    lower    upper
+  Moved     1.000000       NA       NA
+  Not Moved 2.586813 2.040015 3.280172
+
+$p.value
+           two-sided
+area_change   midp.exact fisher.exact   chi.square
+  Moved               NA           NA           NA
+  Not Moved 2.220446e-15 2.275711e-15 4.062473e-16
+
+$correction
+[1] FALSE
+
+attr(,&quot;method&quot;)
+[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;</code></pre>
+<ul>
+<li>Conclusion: Those who moved in consecutive round has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = <span class="math inline">\(4.06*10^{-16}\)</span>) at 5% LOS.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Pregnancy (<code>everpreg = 1</code> -&gt; <code>pregnow = 1</code> -&gt; <code>pregnow</code> change from 0 to 1 in consecutive rounds)</p></li>
 <li><p>Drastic change in SES (create a variable called <code>percentage change in SES</code> -&gt; when change between consecutive rounds is bigger than 30% (<strong>tbd, reference needed</strong>)? )</p></li>
 <li><p>Have a Child (<code>livechild</code> from 0 to 1 in consecutive rounds)</p></li>
@@ -1521,10 +1614,10 @@ attached base packages:
 
 other attached packages:
  [1] SnowballC_0.7.0    wordcloud_2.6      RColorBrewer_1.1-2 tidytext_0.3.1    
- [5] knitr_1.33         kableExtra_1.3.4   scales_1.1.1       haven_2.3.1       
- [9] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.6        purrr_0.3.4       
-[13] readr_1.4.0        tidyr_1.1.3        tibble_3.1.2       ggplot2_3.3.3     
-[17] tidyverse_1.3.1    workflowr_1.6.2   
+ [5] epitools_0.5-10.1  magrittr_2.0.1     knitr_1.33         kableExtra_1.3.4  
+ [9] scales_1.1.1       haven_2.3.1        forcats_0.5.1      stringr_1.4.0     
+[13] dplyr_1.0.6        purrr_0.3.4        readr_1.4.0        tidyr_1.1.3       
+[17] tibble_3.1.2       ggplot2_3.3.3      tidyverse_1.3.1   
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.2        jsonlite_1.7.2    viridisLite_0.4.0 modelr_0.1.8     
@@ -1534,14 +1627,14 @@ loaded via a namespace (and not attached):
 [17] htmltools_0.5.1.1 httpuv_1.6.1      Matrix_1.3-3      pkgconfig_2.0.3  
 [21] broom_0.7.6       webshot_0.5.2     svglite_2.0.0     whisker_0.4      
 [25] later_1.2.0       git2r_0.28.0      generics_0.1.0    farver_2.1.0     
-[29] ellipsis_0.3.2    withr_2.4.2       cli_3.0.0         magrittr_2.0.1   
-[33] crayon_1.4.1      readxl_1.3.1      evaluate_0.14     tokenizers_0.2.1 
-[37] janeaustenr_0.1.5 fs_1.5.0          fansi_0.5.0       xml2_1.3.2       
-[41] tools_4.0.4       hms_1.1.0         lifecycle_1.0.0   munsell_0.5.0    
-[45] reprex_2.0.0      compiler_4.0.4    systemfonts_1.0.2 rlang_0.4.11     
-[49] grid_4.0.4        rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.8    
-[53] gtable_0.3.0      DBI_1.1.1         R6_2.5.0          lubridate_1.7.10 
-[57] utf8_1.2.1        rprojroot_2.0.2   stringi_1.6.2     Rcpp_1.0.6       
+[29] ellipsis_0.3.2    withr_2.4.2       cli_3.0.0         crayon_1.4.1     
+[33] readxl_1.3.1      evaluate_0.14     tokenizers_0.2.1  janeaustenr_0.1.5
+[37] fs_1.5.0          fansi_0.5.0       xml2_1.3.2        tools_4.0.4      
+[41] hms_1.1.0         lifecycle_1.0.0   munsell_0.5.0     reprex_2.0.0     
+[45] compiler_4.0.4    systemfonts_1.0.2 rlang_0.4.11      grid_4.0.4       
+[49] rstudioapi_0.13   labeling_0.4.2    rmarkdown_2.8     gtable_0.3.0     
+[53] DBI_1.1.1         R6_2.5.0          lubridate_1.7.10  utf8_1.2.1       
+[57] workflowr_1.6.2   rprojroot_2.0.2   stringi_1.6.2     Rcpp_1.0.6       
 [61] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.23        </code></pre>
 </div>
 </div>
