@@ -6,7 +6,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align="center")
+knitr::opts_chunk$set(fig.height=5, fig.width=8.5,
+                      warning=FALSE, message=FALSE, fig.align="center")
 ```
 
 ```{r load_packages}
@@ -16,6 +17,8 @@ library(ggplot2)
 library(scales)
 library(kableExtra)
 library(knitr)
+library(magrittr)
+library(epitools)
 ```
 
 ## Pre-processing
@@ -25,13 +28,15 @@ library(knitr)
 ```{r load_data}
 setwd("/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data")
 
-dat <- read_dta("../data/all_data_original_id_1_19.dta")
-dat_part_cleaned <- read_dta("../data/R1_R18_partcleaned_incidence_20190913.dta")
+dat <- read_dta("all_data_original_id_1_19.dta")
+dat_part_cleaned <- read_dta("R1_R18_partcleaned_incidence_20190913.dta")
 
 colors <- c("#8d96a3", "#edae49", "94bee3", "#5ec0b2", "#9fc96c", "#5ec0b2")
 ```
 
 ### Creating full dataset
+
+Only rows from the `all_data_original_id_1_19.dta` dataset will be included in the full dataset.
 
 ```{r merge_data}
 # `hivrslt`: 1 2 3 7 8 9
@@ -59,61 +64,63 @@ dat_all <-
   left_join(comm_num_dat, by = c("study_id" = "study_id", "round" = "round")) %>%
   mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %>%
   select(-comm_num.x, -comm_num.y)
+
+dat_all %>% relocate(study_id) %>% group_by(study_id)
 ```
 
 **Check if all requested variables exist**
   
-  ```{r filter_var}
-  vars <- c("occup1", "occup2", "occupat1", "occupat2", "occs", # outcome
-            "female", "ageyrs", "conf_age", "conf_age_flow", # demographics
-            "comm_num",
-            "radio", "bicycle","car","motorcyc","latrine", # SES
-            "electric", "floor", "othfloor", "roof", "walls",
-            "everpreg", "pregnow", "livechild", "numchild", # pregnancy
-            "evermarr", "currmarr", "polymar", "evermend", # marriage  
-            "pabuseyr", "ppushyr", "pfistyr", "pkickyr", # domestic violence
-            "pweapyr", "patknyr", "pothvyr",
-            "vthrsxpy", "pfocsxpy", "othfsxpy", "othpvyrs",# violence
-            "hivrslt",# hiv result
-            "occupat11", "occupat21", "occup11", "occup21", "occups1", # partner occupation
-            "educate", "educyrs", "school", "finsch", "pregsch", # education
-            "movesch", "menasch", "harasch", "bullwsch", "paresch",
-            "accomsch", "othsch", "spesch", "addtrain")
-  
-  dat_all %>% select(all_of(vars))
-  
-  # "occupat1", "occupat2", "occs",
-  # "conf_age", "conf_age_flow", visit
-  # "livechild", "numchild",
-  # "othpvyrs", "hivrslt",
-  # "occup11", "occup21", "occups1",
-  # "addtrain"
-  ```
+```{r filter_var}
+vars <- c("occup1", "occup2", "occupat1", "occupat2", "occs", # outcome
+          "female", "ageyrs", "conf_age", "conf_age_flow", # demographics
+          "comm_num",
+          "radio", "bicycle","car","motorcyc","latrine", # SES
+          "electric", "floor", "othfloor", "roof", "walls",
+          "everpreg", "pregnow", "livechild", "numchild", # pregnancy
+          "evermarr", "currmarr", "polymar", "evermend", # marriage  
+          "pabuseyr", "ppushyr", "pfistyr", "pkickyr", # domestic violence
+          "pweapyr", "patknyr", "pothvyr",
+          "vthrsxpy", "pfocsxpy", "othfsxpy", "othpvyrs",# violence
+          "hivrslt",# hiv result
+          "occupat11", "occupat21", "occup11", "occup21", "occups1", # partner occupation
+          "educate", "educyrs", "school", "finsch", "pregsch", # education
+          "movesch", "menasch", "harasch", "bullwsch", "paresch",
+          "accomsch", "othsch", "spesch", "addtrain")
+
+dat_all %>% select(all_of(vars))
+
+# "occupat1", "occupat2", "occs",
+# "conf_age", "conf_age_flow", visit
+# "livechild", "numchild",
+# "othpvyrs", "hivrslt",
+# "occup11", "occup21", "occups1",
+# "addtrain"
+```
 
 
 ### Data Cleaning
 
 1. Create `age` variable by merging information from `conf_age_flow`, `conf_age`, `ageyrs`
 
-  ```{r}
-  # Prioritization: `conf_age_flow` -> `conf_age` -> `ageyrs`
-  dat_all <-
-    dat_all %>% 
-    mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %>% 
-    mutate(age = ifelse(is.na(age), ageyrs, age))
-  ```
+```{r}
+# Prioritization: `conf_age_flow` -> `conf_age` -> `ageyrs`
+dat_all <-
+  dat_all %>% 
+  mutate(age = ifelse(is.na(conf_age_flow), conf_age, conf_age_flow)) %>% 
+  mutate(age = ifelse(is.na(age), ageyrs, age))
+```
 
 2. Filter by age (15-24 year-old respondents) and generate `age groups` variable (15-17, 18-19, 20-24)
 
-  ```{r}
-  dat_all <- 
-    dat_all %>%
-    filter(15 <= age & age <= 24) %>%
-    mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %>%
-    mutate(age_cat = labelled(age_cat, c("15-17" = 1, "18-19" = 2, "20-24" = 3)))
-  ```
+```{r}
+dat_all <- 
+  dat_all %>%
+  filter(15 <= age & age <= 24) %>%
+  mutate(age_cat = cut(age, breaks = c(14.5, 17.5, 19.5, 24.5), labels = c(1, 2, 3))) %>%
+  mutate(age_cat = labelled(age_cat, c("15-17" = 1, "18-19" = 2, "20-24" = 3)))
+```
 
-**3. Generate `visit` variable **
+3. Generate `visit` variable
 
 ```{r}
 dat_all <- 
@@ -122,7 +129,7 @@ dat_all <-
   mutate(visit = as.numeric(visit))
 ```
 
-**4. Generate `time period` variable (R1-R9 and R10-R19)**
+4. Generate `time period` variable (R1-R9 and R10-R19)
 
 ````{r}
 dat_all <-
@@ -131,7 +138,7 @@ dat_all <-
   mutate(period = labelled(period, c("R1-R9" = 1, "R10-R19" = 2)))
 ```
 
-**5. Generate `area` variable**
+5. Generate `area` variable
 
 ```{r}
 comm_fishing <- c(23, 38, 370, 770, 771, 772, 773, 774, 51, 776)
@@ -151,7 +158,7 @@ dat_all <-
   left_join(area)
 ```
 
-**6. Categorize occupations for respondents (based on R1-18 part cleaned data)**
+6. Categorize occupations for respondents (based on R1-18 part cleaned data)
 
 ```{r}
 # labelling occupations
@@ -204,7 +211,7 @@ dat_all <- dat_all %>%
   left_join(occup2_mob, by = ("occup2" = "occup2"))
 ```
 
-**7. Recoding/labelling `hivrslt` variable**
+7. Recoding/labelling `hivrslt` variable
 
 ```{r}
 # `hivrslt`: 1 2 3 7 8 9
@@ -218,11 +225,78 @@ hivrslt_lab <- c("Negative" = 1,
 dat_all$hivrslt <- dat_all$hivrslt %>% labelled(hivrslt_lab)
 ```
 
-## Preliminary Analysis
+8. Creating `SES` variable
 
-#### Visualize general occupation trends
+```{r}
+setwd("/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data")
 
-**1. Top occupations for each community type**
+## 1. Select data
+dat_ses <- dat_all %>%
+  select(study_id, visit, radio, bicycle, motorcyc, car, latrine, electric, roof, floor, walls)
+
+## 2. Recode
+dat_ses <- dat_ses %>% 
+  mutate(radio_r = ifelse(radio == 1, 1,ifelse(radio %in% c(2,3,5), 0, NA)),
+         bicycle_r = ifelse(bicycle == 1, 1,ifelse(bicycle %in% c(2,3,5), 0, NA)),
+         car_r = ifelse(car == 1, 1,ifelse(car %in% c(2,3,5), 0, NA)),
+         motorcyc_r = ifelse(motorcyc == 1, 1,ifelse(motorcyc %in% c(2,3,5), 0, NA)),
+         latrine_r = ifelse(latrine == 1, 1,ifelse(latrine %in% c(2,3,5), 0, NA)),
+         electric_r = ifelse(electric == 1, 1,ifelse(electric %in% c(2,3,5), 0, NA)),
+         roof_r = ifelse(roof %in% c(1,3), 1,ifelse(roof %in% c(2,4,5), 0, NA)),
+         floor_r = ifelse(floor %in% c(2,3), 1,ifelse(floor %in% c(1,5), 0, NA)),
+         walls_r = ifelse(walls %in% c(3), 1,ifelse(walls %in% c(1,2,4,5), 0, NA)))
+
+## 3. Calculate raw SES index
+df_asset_data <- dat_ses %>% 
+  select(study_id, visit, radio_r, bicycle_r, motorcyc_r, car_r, latrine_r, electric_r, roof_r, floor_r, walls_r) %>% 
+  pivot_longer(cols = radio_r:walls_r, names_to = "variable", values_to = "status") %>%
+  arrange(study_id, visit)
+
+df_pca_overall <- readxl::read_xlsx("./PCA_weights.xlsx") %>%
+  select(variable, Overall) %>%
+  rename(score = Overall) 
+
+df_merge_overall <- left_join(df_asset_data, df_pca_overall, by = 'variable') %>%
+  arrange(study_id, visit) %>%
+  mutate(SES = status * score) 
+
+df_ovSES_data <- df_merge_overall %>%
+  arrange(study_id, visit) %>% 
+  group_by(study_id, visit) %>% 
+  summarise(SES = sum(SES), na.rm = F) %>%
+  ungroup()
+
+df_SES_data <- left_join(df_ovSES_data, dat_ses, by = c('study_id', 'visit')) %>%
+  mutate(SES = structure(SES, label = "raw SES score")) %>%
+  arrange(study_id, visit) %>%
+  select(-na.rm)
+
+## 4. Create SES z-score and 4-level SES categorical variable
+df_cut_overall <- readxl::read_xlsx("./SES_cutpoints.xlsx") %>%
+  select(cutpoints, Overall) %>%
+  pivot_wider(names_from = cutpoints, values_from = Overall) %>%
+  rename(Q1_zovSES = Q1_stdSES, Q2_zovSES = Q2_stdSES, Q3_zovSES = Q3_stdSES)
+
+df_SES_data <- df_SES_data %>%
+  mutate(zovSES = structure((SES - df_cut_overall$mean_SES) / df_cut_overall$sd_SES, label = "Overall standardized SES"), 
+         SEScat = case_when(zovSES <= df_cut_overall$Q1_zovSES ~ 0,
+                            zovSES > df_cut_overall$Q1_zovSES & zovSES <= df_cut_overall$Q2_zovSES ~ 1,
+                            zovSES > df_cut_overall$Q2_zovSES & zovSES <= df_cut_overall$Q3_zovSES ~ 2,
+                            zovSES > df_cut_overall$Q3_zovSES ~ 3)) %>%
+  #mutate(SEScat = structure(SEScat, label = "zovSES categories"))
+  mutate(SEScat = structure(ordered(SEScat, labels = c("lowest", "low-middle", "high-middle", "highest")), label = "zovSES categories"))
+
+## 5. Merge into large dataset
+df_SES_data <- df_SES_data %>% select(study_id, visit, SES, SEScat)
+dat_all <- dat_all %>% left_join(df_SES_data, by = c("study_id" = "study_id", "visit" = "visit"))
+```
+
+
+## Describe trends over time in AYA occupations
+
+### Visualize general occupation trends
+
+1. Top occupations for each community type
 
 ```{r}
 top_occup_area <- 
@@ -271,9 +345,9 @@ top_occup_area %>%
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-**2. Top occupations for each gender**
+2. Top occupations for each gender
   
-```{r out.width="50%", out.height="50%"}
+```{r}
 top_occup_gender <- 
   dat_all %>% 
   select (study_id, visit, female, occup1) %>%
@@ -310,9 +384,9 @@ top_occup_gender %>%
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-**3. Top occupations for each age group**
+3. Top occupations for each age group
 
-```{r out.width="50%", out.height="50%"}
+```{r}
 top_occup_agecat <- 
   dat_all %>% 
   select (study_id, visit, female, age_cat, occup1) %>%
@@ -346,9 +420,9 @@ for (i in c("15-17", "18-19", "20-24")){
 
 It can be observed from above analysis that the top occupations for AYA include `Student`, `Agriculture for home use/barter`, `Housework in your own home`, `Agriculture for selling`, `Government/clerical/teaching`, `Trading/Vending` and `Other` (in addition to one community-specific occupation `Fishing`). Therefore, following analysis will be mainly focused on these occupations.
 
-## Describe trends over time in AYA occupations
+### Trends over time in AYA occupations
 
-**Trend by `visit`**
+1. Trend by `visit`
   
 ```{r}
 # Student 8
@@ -404,7 +478,7 @@ occup_trend_visit %>%
 # }
 ```
   
-**Trend by `age`**
+2. Trend by `age`
   
 ```{r}
 occup_trend_age <- dat_all %>% 
@@ -441,7 +515,7 @@ occup_trend_age %>%
 # }
 ```
   
-**Generate a word cloud for occupations described in `Other`**
+3. Word cloud for occupations described in `Other`
 
 ```{r}
 library(tidytext)
@@ -463,8 +537,68 @@ wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = b
 
 ## Association between social and structural transitions and occupations
 
+In the following section, for every respondent, only changes in consecutive rounds will be examined. Therefore, a new dataset with only consecutive rounds information is created for the association analysis. A new `include` variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.
+
+```{r}
+dat_assoc <- 
+  dat_all %>%
+  group_by(study_id) %>%
+  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %>%
+  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %>%
+  mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
+  filter(include == 1) %>%
+  select(-visit_prev_change, -visit_next_change, -include)
+dat_assoc
+```
+
 1. Moving (change in `area` in consecutive rounds)
 
+```{r}
+dat_move_occup <-
+  dat_assoc %>%
+  select(study_id, visit, area, occup1) %>%
+  group_by(study_id) %>%
+  drop_na(area) %>%
+  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %>%
+  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %>%
+  mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
+  filter(include == 1) %>%
+  select(-visit_prev_change, -visit_next_change, -include)
+
+dat_move_occup <-
+  dat_move_occup %>%
+  mutate(area_change = ifelse(area != lag(area, default = area[1]), "Moved", "Not Moved")) %>%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), "Changed Occupation", "Did not change occupation")) %>%
+  slice(-1) %>%
+  ungroup()
+
+dat_move_occup <-
+  dat_move_occup %>% select(area_change, occup1_change)
+```
+
+  * Let OR = the odds ratio of change occupation for those moved v.s. those who did not move in consecutive rounds
+  
+  * $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+  
+  * Contingency table
+  
+```{r}
+table_move_occup <- table(dat_move_occup)
+addmargins(table_move_occup)
+
+mosaicplot(t(table_move_occup), 
+           col = c("firebrick", "goldenrod1"), 
+           cex.axis = 1, xlab = "Changed Occuaption", ylab = "Moved", main = "")
+```
+
+ * Use Pearson Chi-squared to test for association
+  
+```{r}
+oddsratio(table_move_occup, method = "wald")
+```
+
+  * Conclusion: Those who moved in consecutive round has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $4.06*10^{-16}$) at 5% LOS.
+  
 2. Pregnancy (`everpreg = 1` -> `pregnow = 1` -> `pregnow` change from 0 to 1 in consecutive rounds)
 
 3. Drastic change in SES (create a variable called `percentage change in SES` -> when change between consecutive rounds is bigger than 30% (**tbd, reference needed**)? )
