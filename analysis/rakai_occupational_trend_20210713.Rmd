@@ -548,66 +548,65 @@ dat_assoc <-
   mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
   filter(include == 1) %>%
   select(-visit_prev_change, -visit_next_change, -include)
-dat_assoc
 ```
 
-1. Moving (change in `area` in consecutive rounds)
+1. **Moving (change in `area` in consecutive rounds)**
 
-```{r}
-dat_move_occup <-
-  dat_assoc %>%
-  select(study_id, visit, area, occup1) %>%
-  group_by(study_id) %>%
-  drop_na(area) %>%
-  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %>%
-  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %>%
-  mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
-  filter(include == 1) %>%
-  select(-visit_prev_change, -visit_next_change, -include)
+      ```{r}
+      dat_move_occup <-
+        dat_assoc %>%
+        select(study_id, visit, area, occup1) %>%
+        group_by(study_id) %>%
+        drop_na(area) %>%
+        mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %>%
+        mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %>%
+        mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
+        filter(include == 1) %>%
+        select(-visit_prev_change, -visit_next_change, -include)
 
-dat_move_occup <-
-  dat_move_occup %>%
-  mutate(area_change = ifelse(area != lag(area, default = area[1]), "Moved", "Not Moved")) %>%
-  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), "Changed Occupation", "Did not change occupation")) %>%
-  slice(-1) %>%
-  ungroup()
+      dat_move_occup <-
+        dat_move_occup %>%
+        mutate(area_change = ifelse(area != lag(area, default = area[1]), "Moved", "Not Moved")) %>%
+        mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), "Changed Occupation", "Did not change occupation")) %>%
+        slice(-1) %>%
+        ungroup()
 
-dat_move_occup <-
-  dat_move_occup %>% select(area_change, occup1_change)
-```
+      dat_move_occup <-
+        dat_move_occup %>% select(area_change, occup1_change)
+      ```
 
-  * Let OR = the odds ratio of change occupation for those moved v.s. those who did not move in consecutive rounds
+    * Let OR = the odds ratio of change occupation for those moved v.s. those who did not move in consecutive rounds
   
-  * $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+    * Hypothesis: $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
   
-  * Contingency table
+    * Contingency table
   
-```{r}
-table_move_occup <- table(dat_move_occup)
-addmargins(table_move_occup)
+      ```{r}
+      table_move_occup <- table(dat_move_occup)
+      addmargins(table_move_occup)
 
-mosaicplot(t(table_move_occup), 
-           col = c("firebrick", "goldenrod1"), 
-           cex.axis = 1, xlab = "Changed Occuaption", ylab = "Moved", main = "")
-```
+      mosaicplot(t(table_move_occup), 
+                col = c("firebrick", "goldenrod1"), 
+                cex.axis = 1, xlab = "Changed Occuaption", ylab = "Moved", main = "")
+      ```
 
- * Use Pearson Chi-squared to test for association
+    * Use Pearson Chi-squared to test for association
   
-```{r}
-oddsratio(table_move_occup, method = "wald")
-```
+      ```{r}
+      oddsratio(table_move_occup, method = "wald")
+      ```
 
-  * Conclusion: Those who moved in consecutive round has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $4.06*10^{-16}$) at 5% LOS.
+    * Conclusion: Those who moved in consecutive round has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $4.06*10^{-16}$) at 5% LOS.
   
-2. Pregnancy (`everpreg = 1` -> `pregnow = 1` -> `pregnow` change from 0 to 1 in consecutive rounds)
+2. **Pregnancy (`everpreg = 1` -> `pregnow = 1` -> `pregnow` change from 0 to 1 in consecutive rounds)**
 
-3. Drastic change in SES (create a variable called `percentage change in SES` -> when change between consecutive rounds is bigger than 30% (**tbd, reference needed**)? )
+3. **Drastic change in SES (create a variable called `percentage change in SES` -> when change between consecutive rounds is bigger than 30% (tbd, reference needed)? )**
 
-4. Have a Child (`livechild` from 0 to 1 in consecutive rounds)
+4. **Have a Child (`livechild` from 0 to 1 in consecutive rounds) **
 
-5. Marriage (`evermarr 1 =` -> `currmarr = 1` -> `currmarr` change from 0 to 1 in consecutive rounds)
+5. **Marriage (`evermarr 1 =` -> `currmarr = 1` -> `currmarr` change from 0 to 1 in consecutive rounds)**
 
-6. Marital Dissolution (`evermarr 1 =` -> `currmarr = 0` -> `currmarr` change from 1 to 0 in consecutive rounds)
+6. **Marital Dissolution (`evermarr 1 =` -> `currmarr = 0` -> `currmarr` change from 1 to 0 in consecutive rounds)**
 
 ## Assess the role in policies like UPE and USE in any shifts in occupations over time
 
