@@ -36,6 +36,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -384,7 +386,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-29
+<strong>Last updated:</strong> 2021-08-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -499,16 +501,16 @@ data
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree8b92473b46ad37e377c5c0100a06ad8a97260099targetblank8b92473a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/8b92473b46ad37e377c5c0100a06ad8a97260099" target="_blank">8b92473</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreec32fddb1ca75f9336b8c4dde9dce6ffaa833c6eftargetblankc32fddba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/c32fddb1ca75f9336b8c4dde9dce6ffaa833c6ef" target="_blank">c32fddb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtree8b92473b46ad37e377c5c0100a06ad8a97260099targetblank8b92473a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreec32fddb1ca75f9336b8c4dde9dce6ffaa833c6eftargetblankc32fddba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/8b92473b46ad37e377c5c0100a06ad8a97260099" target="_blank">8b92473</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/c32fddb1ca75f9336b8c4dde9dce6ffaa833c6ef" target="_blank">c32fddb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -520,6 +522,7 @@ Ignored files:
     Ignored:    Logistic/
     Ignored:    Survey/
     Ignored:    Training/
+    Ignored:    analysis/.Rhistory
     Ignored:    data/.DS_Store
     Ignored:    data/Fishing Villages
     Ignored:    data/PCA_weights.xlsx
@@ -574,6 +577,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/c32fddb1ca75f9336b8c4dde9dce6ffaa833c6ef/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">c32fddb</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-08-09
+</td>
+<td>
+wflow_git_commit("rakai_occupational_trend_20210713.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lamanda0227/rakai_occupation_trend/32f5fe7820eed4ecb407b0cc79152a77ce920bd1/docs/rakai_occupational_trend_20210713.html" target="_blank">32f5fe7</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-07-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -721,6 +758,7 @@ Amanda
 library(haven)
 library(ggplot2)
 library(scales)
+library(knitr)
 library(kableExtra)
 library(knitr)
 library(magrittr)
@@ -734,7 +772,7 @@ library(epitools)</code></pre>
 dat &lt;- read_dta(&quot;all_data_original_id_1_19.dta&quot;)
 dat_part_cleaned &lt;- read_dta(&quot;R1_R18_partcleaned_incidence_20190913.dta&quot;)
 
-colors &lt;- c(&quot;#8d96a3&quot;, &quot;#edae49&quot;, &quot;94bee3&quot;, &quot;#5ec0b2&quot;, &quot;#9fc96c&quot;, &quot;#5ec0b2&quot;)</code></pre>
+colors &lt;- c(&quot;#8d96a3&quot;, &quot;#edae49&quot;, &quot;#94bee3&quot;, &quot;#5ec0b2&quot;, &quot;#9fc96c&quot;, &quot;#5ec0b2&quot;)</code></pre>
 </div>
 <div id="creating-full-dataset" class="section level3">
 <h3>Creating full dataset</h3>
@@ -967,8 +1005,7 @@ hivrslt_lab &lt;- c(&quot;Negative&quot; = 1,
 
 dat_all$hivrslt &lt;- dat_all$hivrslt %&gt;% labelled(hivrslt_lab)</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li>Creating <code>SES</code> variable</li>
-</ol>
+<li><p>Creating <code>SES</code> variable</p>
 <pre class="r"><code>setwd(&quot;/Users/tianyi/Desktop/CUMC/Practicum/rakai_occupation_trend/data&quot;)
 
 ## 1. Select data
@@ -1029,7 +1066,8 @@ df_SES_data &lt;- df_SES_data %&gt;%
 
 ## 5. Merge into large dataset
 df_SES_data &lt;- df_SES_data %&gt;% select(study_id, visit, SES, SEScat)
-dat_all &lt;- dat_all %&gt;% left_join(df_SES_data, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;visit&quot; = &quot;visit&quot;))</code></pre>
+dat_all &lt;- dat_all %&gt;% left_join(df_SES_data, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;visit&quot; = &quot;visit&quot;))</code></pre></li>
+</ol>
 </div>
 </div>
 <div id="describe-trends-over-time-in-aya-occupations" class="section level2">
@@ -1037,8 +1075,7 @@ dat_all &lt;- dat_all %&gt;% left_join(df_SES_data, by = c(&quot;study_id&quot; 
 <div id="visualize-general-occupation-trends" class="section level3">
 <h3>Visualize general occupation trends</h3>
 <ol style="list-style-type: decimal">
-<li>Top occupations for each community type</li>
-</ol>
+<li><p>Top occupations for each community type</p>
 <pre class="r"><code>top_occup_area &lt;- 
   dat_all %&gt;% 
   select (study_id, visit, area, occup1) %&gt;%
@@ -1064,7 +1101,7 @@ top_occup_area %&gt;%
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
+<p>Past versions of unnamed-chunk-9-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-9-1" class="collapse">
@@ -1123,7 +1160,7 @@ Amanda
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-2.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
-Past versions of unnamed-chunk-9-2.png
+<p>Past versions of unnamed-chunk-9-2.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-9-2" class="collapse">
@@ -1182,7 +1219,7 @@ Amanda
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-9-3.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-3">
-Past versions of unnamed-chunk-9-3.png
+<p>Past versions of unnamed-chunk-9-3.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-9-3" class="collapse">
@@ -1216,10 +1253,8 @@ Amanda
 </tbody>
 </table>
 </div>
-</div>
-<ol start="2" style="list-style-type: decimal">
-<li>Top occupations for each gender</li>
-</ol>
+</div></li>
+<li><p>Top occupations for each gender</p>
 <pre class="r"><code>top_occup_gender &lt;- 
   dat_all %&gt;% 
   select (study_id, visit, female, occup1) %&gt;%
@@ -1245,7 +1280,7 @@ top_occup_gender %&gt;%
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
+<p>Past versions of unnamed-chunk-10-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-10-1" class="collapse">
@@ -1305,7 +1340,7 @@ Amanda
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-10-2.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-2">
-Past versions of unnamed-chunk-10-2.png
+<p>Past versions of unnamed-chunk-10-2.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-10-2" class="collapse">
@@ -1350,10 +1385,8 @@ Amanda
 </tbody>
 </table>
 </div>
-</div>
-<ol start="3" style="list-style-type: decimal">
-<li>Top occupations for each age group</li>
-</ol>
+</div></li>
+<li><p>Top occupations for each age group</p>
 <pre class="r"><code>top_occup_agecat &lt;- 
   dat_all %&gt;% 
   select (study_id, visit, female, age_cat, occup1) %&gt;%
@@ -1366,7 +1399,7 @@ Amanda
   group_by(age_cat, job, female) %&gt;%
   summarise_at(vars(value), funs(sum(.==&quot;yes&quot;))) %&gt;%
   mutate(frequency = sum(value))
-  
+
 for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
   p &lt;- top_occup_agecat %&gt;% 
     filter(age_cat == i) %&gt;%
@@ -1386,7 +1419,7 @@ for (i in c(&quot;15-17&quot;, &quot;18-19&quot;, &quot;20-24&quot;)){
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<p>Past versions of unnamed-chunk-11-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-11-1" class="collapse">
@@ -1424,7 +1457,7 @@ Amanda
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-2.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
-Past versions of unnamed-chunk-11-2.png
+<p>Past versions of unnamed-chunk-11-2.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-11-2" class="collapse">
@@ -1462,7 +1495,7 @@ Amanda
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-11-3.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-3">
-Past versions of unnamed-chunk-11-3.png
+<p>Past versions of unnamed-chunk-11-3.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-11-3" class="collapse">
@@ -1496,14 +1529,14 @@ Amanda
 </tbody>
 </table>
 </div>
-</div>
+</div></li>
+</ol>
 <p>It can be observed from above analysis that the top occupations for AYA include <code>Student</code>, <code>Agriculture for home use/barter</code>, <code>Housework in your own home</code>, <code>Agriculture for selling</code>, <code>Government/clerical/teaching</code>, <code>Trading/Vending</code> and <code>Other</code> (in addition to one community-specific occupation <code>Fishing</code>). Therefore, following analysis will be mainly focused on these occupations.</p>
 </div>
 <div id="trends-over-time-in-aya-occupations" class="section level3">
 <h3>Trends over time in AYA occupations</h3>
 <ol style="list-style-type: decimal">
-<li>Trend by <code>visit</code></li>
-</ol>
+<li><p>Trend by <code>visit</code></p>
 <pre class="r"><code># Student 8
 # Agriculture for home use/barter 1
 # Housework in your own home 3
@@ -1541,7 +1574,7 @@ occup_trend_visit %&gt;%
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<p>Past versions of unnamed-chunk-13-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-13-1" class="collapse">
@@ -1599,10 +1632,8 @@ Amanda
 #                             plot.subtitle = element_text(hjust = 0.5),
 #                             legend.title = element_blank())
 #   print(p)
-# }</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Trend by <code>age</code></li>
-</ol>
+# }</code></pre></li>
+<li><p>Trend by <code>age</code></p>
 <pre class="r"><code>occup_trend_age &lt;- dat_all %&gt;% 
   select(study_id, visit, area, female, age, age_cat, occup1, occup1_cat, occup1_mob) %&gt;%
   filter(occup1 %in% c(1, 2, 3, 6, 7, 8, 11, 15)) %&gt;% 
@@ -1623,7 +1654,7 @@ occup_trend_age %&gt;%
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-14-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
+<p>Past versions of unnamed-chunk-14-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-14-1" class="collapse">
@@ -1682,10 +1713,8 @@ Amanda
 #                             legend.title = element_blank())
 #   
 #   print(p)
-# }</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Word cloud for occupations described in <code>Other</code></li>
-</ol>
+# }</code></pre></li>
+<li><p>Word cloud for occupations described in <code>Other</code></p>
 <pre class="r"><code>library(tidytext)
 library(wordcloud)
 library(RColorBrewer)
@@ -1704,7 +1733,7 @@ wordcloud(words = occs_word$word, freq = occs_word$n, max.words = 50, colors = b
 <p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-15-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
+<p>Past versions of unnamed-chunk-15-1.png</p>
 </button>
 </p>
 <div id="fig-unnamed-chunk-15-1" class="collapse">
@@ -1738,137 +1767,843 @@ Amanda
 </tbody>
 </table>
 </div>
-</div>
+</div></li>
+</ol>
 </div>
 </div>
 <div id="association-between-social-and-structural-transitions-and-occupations" class="section level2">
 <h2>Association between social and structural transitions and occupations</h2>
-<p>In the following section, for every respondent, only changes in consecutive rounds will be examined. Therefore, a new dataset with only consecutive rounds information is created for the association analysis. A new <code>include</code> variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.</p>
-<pre class="r"><code>dat_assoc &lt;- 
-  dat_all %&gt;%
-  group_by(study_id) %&gt;%
-  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
-  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
-  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
-  filter(include == 1) %&gt;%
-  select(-visit_prev_change, -visit_next_change, -include)</code></pre>
+<p>I choose to examine the following social and structural transitions and their impacts on occupation (focusing on <code>occup1</code>):</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Moving (change in <code>area</code> in consecutive rounds)</strong></p>
-<pre class="r"><code>dat_move_occup &lt;-
-  dat_assoc %&gt;%
-  select(study_id, visit, area, occup1) %&gt;%
-  group_by(study_id) %&gt;%
-  drop_na(area) %&gt;%
-  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
-  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
-  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
-  filter(include == 1) %&gt;%
-  select(-visit_prev_change, -visit_next_change, -include)
-
-dat_move_occup &lt;-
-  dat_move_occup %&gt;%
-  mutate(area_change = ifelse(area != lag(area, default = area[1]), &quot;Moved&quot;, &quot;Not Moved&quot;)) %&gt;%
-  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), &quot;Changed Occupation&quot;, &quot;Did not change occupation&quot;)) %&gt;%
-  slice(-1) %&gt;%
-  ungroup()
-
-dat_move_occup &lt;-
-  dat_move_occup %&gt;% select(area_change, occup1_change)</code></pre>
-<ul>
-<li><p>Let OR = the odds ratio of change occupation for those moved v.s. those who did not move in consecutive rounds</p></li>
-<li><p>Hypothesis: <span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
-<li><p>Contingency table</p>
-<pre class="r"><code>table_move_occup &lt;- table(dat_move_occup)
-addmargins(table_move_occup)</code></pre>
-<pre><code>           occup1_change
-area_change Changed Occupation Did not change occupation   Sum
-  Moved                    170                       115   285
-  Not Moved              15446                     27029 42475
-  Sum                    15616                     27144 42760</code></pre>
-<pre class="r"><code>mosaicplot(t(table_move_occup), 
-          col = c(&quot;firebrick&quot;, &quot;goldenrod1&quot;), 
-          cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;Moved&quot;, main = &quot;&quot;)</code></pre>
-<p><img src="figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-18-1.png" width="816" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-<p>Past versions of unnamed-chunk-18-1.png</p>
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
+<li><p>Moving (from one area to another)</p></li>
+<li><p>Initiation of child bearing -&gt; pregnancy (from no to yes)</p></li>
+<li><p>Having child (from no to yes)</p></li>
+<li><p>Change in SES</p></li>
+<li><p>Marriage</p></li>
+<li><p>Marital dissolution</p></li>
+</ol>
+<p>In addition, in the following section, for every respondent, I choose to only analyse changes in consecutive rounds. Therefore, a new dataset <code>dat_assoc</code> with only information from consecutive rounds is created for the association analysis.</p>
+<p>I will first select the variables that will be used and cross reference with different columns to verify their validity. Missing values will be fill in if possible. Then, a new <code>include</code> variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.</p>
+<div id="data-recoding-and-verification" class="section level3">
+<h3>Data Recoding and Verification</h3>
+<ol style="list-style-type: decimal">
+<li>Select variables needed, drop respondent with missing values for features that cannot be filled in using other features</li>
+</ol>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_all %&gt;%
+  select(study_id, visit, occup1, area, female, everpreg, pregnow, SES, SEScat, livechild, numchild, evermarr, currmarr) %&gt;%
+  drop_na(study_id, visit, occup1, area)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>numchild</code> - female only + male for Rn15 &amp; 16</li>
+</ol>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+numchild
+</caption>
 <thead>
 <tr>
-<th>
-Version
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+numchild
 </th>
-<th>
-Author
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
 </th>
-<th>
-Date
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>
-<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/75ecdd8fc626c5a113e722b1464ae0a37c5e21ca/docs/figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-18-1.png" target="_blank">75ecdd8</a>
+<td style="text-align:left;">
+NA
 </td>
-<td>
-Amanda
+<td style="text-align:left;">
+Missing
 </td>
-<td>
-2021-07-29
+<td style="text-align:left;">
+Replace NA with 99 (NR)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+Number of child
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+Skipped (no livechild or never been pregnant)
+</td>
+<td style="text-align:left;">
+Replace 8 with 0 (None)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+98
+</td>
+<td style="text-align:left;">
+DK
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+NR
+</td>
+<td style="text-align:left;">
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li>
-<li><p>Use Pearson Chi-squared to test for association</p>
-<pre class="r"><code>oddsratio(table_move_occup, method = &quot;wald&quot;)</code></pre>
-<pre><code>$data
-           occup1_change
-area_change Changed Occupation Did not change occupation Total
-  Moved                    170                       115   285
-  Not Moved              15446                     27029 42475
-  Total                  15616                     27144 42760
-
-$measure
-           odds ratio with 95% C.I.
-area_change estimate    lower    upper
-  Moved     1.000000       NA       NA
-  Not Moved 2.586813 2.040015 3.280172
-
-$p.value
-           two-sided
-area_change   midp.exact fisher.exact   chi.square
-  Moved               NA           NA           NA
-  Not Moved 2.220446e-15 2.275711e-15 4.062473e-16
-
-$correction
-[1] FALSE
-
-attr(,&quot;method&quot;)
-[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;</code></pre></li>
-<li><p>Conclusion: Those who moved in consecutive round has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = <span class="math inline">\(4.06*10^{-16}\)</span>) at 5% LOS.</p></li>
-</ul></li>
-<li><p><strong>Pregnancy (<code>everpreg = 1</code> -&gt; <code>pregnow = 1</code> -&gt; <code>pregnow</code> change from 0 to 1 in consecutive rounds)</strong></p></li>
-<li><p><strong>Drastic change in SES (create a variable called <code>percentage change in SES</code> -&gt; when change between consecutive rounds is bigger than 30% (tbd, reference needed)? )</strong></p></li>
-<li><p><strong>Have a Child (<code>livechild</code> from 0 to 1 in consecutive rounds) </strong></p></li>
-<li><p><strong>Marriage (<code>evermarr 1 =</code> -&gt; <code>currmarr = 1</code> -&gt; <code>currmarr</code> change from 0 to 1 in consecutive rounds)</strong></p></li>
-<li><p><strong>Marital Dissolution (<code>evermarr 1 =</code> -&gt; <code>currmarr = 0</code> -&gt; <code>currmarr</code> change from 1 to 0 in consecutive rounds)</strong></p></li>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(numchild = ifelse(is.na(numchild), 99, numchild)) %&gt;% 
+  mutate(numchild = ifelse(numchild == 8, 0, numchild))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><code>livechild</code> - 0 (male); 1 (female) for Rnd 2, 3, 4, 15, 16, 18, 19</li>
 </ol>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+livechild
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+livechild
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Meaning
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+Only one person has livechild=0 (numchild=98 DK; evergpreg=1; pregnow=1)
+</td>
+<td style="text-align:left;">
+Replacce with 8 (NR)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Skipped (never been pregnant)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+People with livechild=9 has numchild=99 (NR)
+</td>
+<td style="text-align:left;">
+Replace with 8 (NR)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Missing
+</td>
+<td style="text-align:left;">
+Replace with 8 (NR)
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="assess-the-role-in-policies-like-upe-and-use-in-any-shifts-in-occupations-over-time" class="section level2">
-<h2>Assess the role in policies like UPE and USE in any shifts in occupations over time</h2>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(livechild = ifelse(livechild == 0, 8, livechild)) %&gt;%
+  mutate(livechild = ifelse(livechild == 9, 8, livechild)) %&gt;%
+  mutate(livechild = ifelse(is.na(livechild), 8, livechild))
+
+# cross checking livechild v.s. numchild
+# livechild == 2 -&gt; numchild = 0 | 99
+dat_assoc %&gt;% filter(livechild == 2) %&gt;% select(numchild) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 4 x 1
+  numchild
+     &lt;dbl&gt;
+1       99
+2       98
+3        0
+4        2</code></pre>
+<pre class="r"><code># if livechild == 2 &amp; numchild == 2, then livechild = 1
+# if livechild == 2 &amp; numchild == 98, then numchild = 99
+dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(livechild = ifelse(livechild == 2 &amp; numchild == 2, 1, livechild)) %&gt;%
+  mutate(numchild = ifelse(livechild == 2 &amp; numchild == 98, 99, numchild))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><code>pregnow</code> - female only</li>
+</ol>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+pregnow
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+pregnow
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Uncertain (Rnd 4)
+</td>
+<td style="text-align:left;">
+Replace with 7 (DK)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+DK
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+N/A
+</td>
+<td style="text-align:left;">
+Label as NR
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Replace with 8
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="variable-selection-and-transformation" class="section level2">
-<h2>Variable selection and transformation</h2>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(pregnow = ifelse(pregnow == 3, 7, pregnow)) %&gt;%
+  mutate(pregnow = ifelse(is.na(pregnow), 8, pregnow))</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><code>everpreg</code> - female only</li>
+</ol>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+everpreg
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+everpreg
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+DK
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+N/A
+</td>
+<td style="text-align:left;">
+Label as NR
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Replace with 8
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="model-fitting" class="section level2">
-<h2>Model fitting</h2>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(everpreg = ifelse(is.na(everpreg), 8, everpreg))
+
+# cross checking everpreg v.s. pregnow
+# if pregnow == 1 then everpreg = 1
+dat_assoc %&gt;% filter(pregnow == 1) %&gt;% select(everpreg) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 2 x 1
+  everpreg
+     &lt;dbl&gt;
+1        1
+2        8</code></pre>
+<pre class="r"><code># pregnow == 1 &amp; everpreg == 8 -&gt; everpreg = 1
+dat_assoc &lt;- 
+  dat_assoc %&gt;% 
+  mutate(everpreg  = ifelse((pregnow == 1 &amp; everpreg == 8), 1, everpreg))
+
+# corss checking everpreg v.s. numchild
+# if numchild %in% c(1:7) then everpreg = 1 (when female = 1)
+dat_assoc %&gt;% filter(numchild %in% c(1:7), female == 1) %&gt;% select(everpreg) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 1 x 1
+  everpreg
+     &lt;dbl&gt;
+1        1</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li><code>female</code>: 0 (male), 1 (female)</li>
+</ol>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+female
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+female
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Female
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Filled by comparing everpreg and pregnow
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>dat_assoc %&gt;% filter(is.na(female))</code></pre>
+<pre><code># A tibble: 2 x 13
+  study_id visit     occup1 area  female everpreg pregnow   SES SEScat livechild
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl+lbl&gt; &lt;chr&gt; &lt;dbl+&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
+1 H131435     19 1 [Agricu… rural     NA        1       2  2.20 highe…         1
+2 H131540     19 8 [Studen… rural     NA        2       8  2.52 highe…         8
+# … with 3 more variables: numchild &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;,
+#   currmarr &lt;dbl+lbl&gt;</code></pre>
+<pre class="r"><code># Gender of H131540 cannot be determined
+dat_assoc &lt;- 
+  dat_assoc %&gt;% 
+  mutate(female = ifelse(study_id==&quot;H131435&quot;, 1, female)) %&gt;% 
+  drop_na(female)
+
+# cross checking everpreg v.s. pregnow v.s. female
+# if everpreg = 1 | pregnow = 1 then female = 1
+dat_assoc %&gt;% filter(everpreg == 1 | pregnow == 1) %&gt;% select(female) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 2 x 1
+  female
+   &lt;dbl&gt;
+1      1
+2      0</code></pre>
+<pre class="r"><code># there are respodents whose gender does not correspond to pregnancy status
+dat_assoc %&gt;% filter(everpreg == 1 | pregnow == 1, female == 0)</code></pre>
+<pre><code># A tibble: 2 x 13
+  study_id visit     occup1 area  female everpreg pregnow   SES SEScat livechild
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl+lbl&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
+1 B020838      2 8 [Studen… rural      0        1       1  1.53 high-…         8
+2 G005620      2 1 [Agricu… rural      0        1       2  1.04 low-m…         8
+# … with 3 more variables: numchild &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;,
+#   currmarr &lt;dbl+lbl&gt;</code></pre>
+<pre class="r"><code># B020838 and G005620
+dat_all %&gt;% filter(study_id == &quot;B020838&quot; | study_id == &quot;G005620&quot;) %&gt;%   
+  select(study_id, visit, female, everpreg, pregnow, livechild, numchild)</code></pre>
+<pre><code># A tibble: 4 x 7
+  study_id visit    female  everpreg   pregnow livechild numchild
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl+lbl&gt; &lt;dbl+lbl&gt; &lt;dbl+lbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 B020838      2  0 [Male]  NA         1 [Yes]        NA       NA
+2 B020838      3  0 [Male]   8 [N/A]   8 [N/A]        NA       NA
+3 B020838      4  0 [Male]   8 [N/A]   8 [N/A]         2       NA
+4 G005620      2  0 [Male]   1 [Yes]   2 [No]         NA       NA</code></pre>
+<pre class="r"><code># B020838 is recorded as a male in other visits
+# pregnow = 1 in visit 2 can be considered as a data entry error
+dat_assoc %&gt;% filter(study_id == &quot;B020838&quot;)</code></pre>
+<pre><code># A tibble: 3 x 13
+  study_id visit    occup1 area  female everpreg pregnow   SES SEScat  livechild
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl+lbl&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;       &lt;dbl&gt;
+1 B020838      2 8 [Stude… rural      0        1       1  1.53 high-m…         8
+2 B020838      3 8 [Stude… rural      0        8       8  1.86 high-m…         8
+3 B020838      4 8 [Stude… rural      0        8       8  1.53 high-m…         2
+# … with 3 more variables: numchild &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;,
+#   currmarr &lt;dbl+lbl&gt;</code></pre>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(pregnow = ifelse(study_id == &quot;B020838&quot;, 8, pregnow)) %&gt;%
+  mutate(everpreg = ifelse(study_id == &quot;B020838&quot;, 8, everpreg))
+
+# G005620 has record for everpreg and pregnow, suggesting she is a female 
+# since only female get asked about their pregnancy status
+# female = 0 can be considered as a data entry error
+dat_assoc %&gt;% filter(study_id == &quot;G005620&quot;)</code></pre>
+<pre><code># A tibble: 1 x 13
+  study_id visit     occup1 area  female everpreg pregnow   SES SEScat livechild
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl+lbl&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
+1 G005620      2 1 [Agricu… rural      0        1       2  1.04 low-m…         8
+# … with 3 more variables: numchild &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;,
+#   currmarr &lt;dbl+lbl&gt;</code></pre>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(female = ifelse(study_id == &quot;G005620&quot;, 1, female))</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><code>evermarr</code></li>
+</ol>
+<pre class="r"><code>evermarr_val &lt;- c(1, 2, 8, NA)
+evermarr_label &lt;- c(&quot;Yes&quot;, &quot;No&quot;, &quot;N/A&quot;, &quot;NA&quot;)
+evermarr_manipulation &lt;- c(&quot;&quot;, &quot;&quot;, &quot;Label as NR&quot;, &quot;Replace with 8&quot;)
+
+data.frame(evermarr = evermarr_val, Label = evermarr_label, Manipulation = evermarr_manipulation) %&gt;% 
+  kable(style = &quot;html&quot;, caption = &quot;evermarr&quot;) %&gt;% 
+  kable_styling(&quot;striped&quot;, position = &quot;center&quot;) %&gt;%
+  scroll_box(height = &quot;200px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+evermarr
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+evermarr
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+N/A
+</td>
+<td style="text-align:left;">
+Label as NR
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Replace with 8
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(evermarr = ifelse(is.na(evermarr), 8, evermarr))</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><code>currmarr</code></li>
+</ol>
+<pre class="r"><code>currmarr_val &lt;- c(0, 1, 2, 8, 9, NA)
+currmarr_label &lt;- c(&quot;0&quot;, &quot;Currently married&quot;, &quot;Previously married&quot;, &quot;Never been married&quot;, &quot;9&quot;, &quot;NA&quot;)
+currmarr_manipulation &lt;- c(&quot;Replace with 9&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;Label as NR&quot;, &quot;Replace with 9&quot;)
+
+data.frame(currmarr = currmarr_val, Label = currmarr_label, Manipulation = currmarr_manipulation) %&gt;%
+  kable(style = &quot;html&quot;, caption = &quot;currmarr&quot;) %&gt;% 
+  kable_styling(&quot;striped&quot;, position = &quot;center&quot;) %&gt;%
+  scroll_box(height = &quot;200px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+currmarr
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+currmarr
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Label
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Manipulation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+Replace with 9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Currently married
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Previously married
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Never been married
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+Label as NR
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Replace with 9
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>dat_assoc&lt;-
+  dat_assoc %&gt;% 
+  mutate(currmarr = ifelse(currmarr == 0, 9, currmarr)) %&gt;%
+  mutate(currmarr = ifelse(is.na(currmarr), 9, currmarr)) %&gt;%
+  mutate(currmarr = labelled(currmarr, c(&quot;Currently married&quot; = 1,
+                                         &quot;Previously married&quot; = 2,
+                                         &quot;Never been married&quot; = 8,
+                                         &quot;NR&quot; = 9)))
+
+# cross checking evermarr v.s. currmarr
+# if currmarr = 1 | 2 then evermarr = 1
+dat_assoc %&gt;% filter(currmarr == 1 | currmarr == 2) %&gt;% select(evermarr) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 3 x 1
+  evermarr
+     &lt;dbl&gt;
+1        8
+2        1
+3        2</code></pre>
+<pre class="r"><code>dat_assoc %&gt;% filter(currmarr == 1 | currmarr == 2, evermarr == 8)</code></pre>
+<pre><code># A tibble: 15,946 x 13
+   study_id visit    occup1 area  female everpreg pregnow   SES SEScat livechild
+   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl+lbl&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;      &lt;dbl&gt;
+ 1 A000001      2  6 [Gove… rural      1        2       8 0.987 low-m…         8
+ 2 A000035      1  8 [Stud… rural      0        8       8 1.47  high-…         8
+ 3 A000035      2  8 [Stud… rural      0        8       8 1.15  low-m…         8
+ 4 A000051      1 10 [Shop… rural      0        8       8 1.04  low-m…         8
+ 5 A000077      1 10 [Shop… rural      1        8       2 0.556 lowest         8
+ 6 A000077      2 10 [Shop… rural      1        2       8 0.556 lowest         8
+ 7 A000077      3 10 [Shop… rural      1        2       8 0.556 lowest         8
+ 8 A000124      1 15 [Othe… rural      1        8       2 1.15  low-m…         8
+ 9 A000140      3  1 [Agri… rural      0        8       8 0.214 lowest         8
+10 A000166      1  1 [Agri… rural      1        8       2 1.15  low-m…         8
+# … with 15,936 more rows, and 3 more variables: numchild &lt;dbl&gt;,
+#   evermarr &lt;dbl&gt;, currmarr &lt;dbl+lbl&gt;</code></pre>
+<pre class="r"><code>### QUESTION</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Labeling all categorical variables</li>
+</ol>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;% 
+  mutate(numchild = labelled(numchild, c(&quot;None&quot; = 0, &quot;DK&quot; = 98, &quot;NR&quot; = 99))) %&gt;%
+  mutate(livechild = labelled(livechild, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) %&gt;%
+  mutate(pregnow = labelled(pregnow, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
+  mutate(everpreg = labelled(everpreg, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
+  mutate(female = labelled(female, c(&quot;Female&quot; = 1, &quot;Male&quot; = 0))) %&gt;%
+  mutate(evermarr = labelled(evermarr, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) 
+# %&gt;% mutate(currmarr = labelled(currmarr, c()))</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Filter data by consecutive rounds</li>
+</ol>
+<pre class="r"><code>dat_assoc &lt;-
+  dat_assoc %&gt;%
+  group_by(study_id) %&gt;%
+  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
+  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
+  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
+  filter(include == 1)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1893,7 +2628,7 @@ attached base packages:
 
 other attached packages:
  [1] SnowballC_0.7.0    wordcloud_2.6      RColorBrewer_1.1-2 tidytext_0.3.1    
- [5] epitools_0.5-10.1  magrittr_2.0.1     knitr_1.33         kableExtra_1.3.4  
+ [5] epitools_0.5-10.1  magrittr_2.0.1     kableExtra_1.3.4   knitr_1.33        
  [9] scales_1.1.1       haven_2.3.1        forcats_0.5.1      stringr_1.4.0     
 [13] dplyr_1.0.6        purrr_0.3.4        readr_1.4.0        tidyr_1.1.3       
 [17] tibble_3.1.2       ggplot2_3.3.3      tidyverse_1.3.1   
@@ -1915,6 +2650,7 @@ loaded via a namespace (and not attached):
 [53] DBI_1.1.1         R6_2.5.0          lubridate_1.7.10  utf8_1.2.1       
 [57] workflowr_1.6.2   rprojroot_2.0.2   stringi_1.6.2     Rcpp_1.0.6       
 [61] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.23        </code></pre>
+</div>
 </div>
 </div>
 
