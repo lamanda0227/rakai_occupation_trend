@@ -501,16 +501,16 @@ data
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreec32fddb1ca75f9336b8c4dde9dce6ffaa833c6eftargetblankc32fddba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/c32fddb1ca75f9336b8c4dde9dce6ffaa833c6ef" target="_blank">c32fddb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreed0fee1e46e4d648e1c4eaceaf4b033a9f1a23453targetblankd0fee1ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/d0fee1e46e4d648e1c4eaceaf4b033a9f1a23453" target="_blank">d0fee1e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreec32fddb1ca75f9336b8c4dde9dce6ffaa833c6eftargetblankc32fddba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlamanda0227rakaioccupationtrendtreed0fee1e46e4d648e1c4eaceaf4b033a9f1a23453targetblankd0fee1ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/c32fddb1ca75f9336b8c4dde9dce6ffaa833c6ef" target="_blank">c32fddb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lamanda0227/rakai_occupation_trend/tree/d0fee1e46e4d648e1c4eaceaf4b033a9f1a23453" target="_blank">d0fee1e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -523,6 +523,7 @@ Ignored files:
     Ignored:    Survey/
     Ignored:    Training/
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/figure/
     Ignored:    data/.DS_Store
     Ignored:    data/Fishing Villages
     Ignored:    data/PCA_weights.xlsx
@@ -577,6 +578,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lamanda0227/rakai_occupation_trend/blob/d0fee1e46e4d648e1c4eaceaf4b033a9f1a23453/analysis/rakai_occupational_trend_20210713.Rmd" target="_blank">d0fee1e</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-08-09
+</td>
+<td>
+wflow_publish("rakai_occupational_trend_20210713.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lamanda0227/rakai_occupation_trend/8aff1e36362d3b4fed722b6178a66fa69447096b/docs/rakai_occupational_trend_20210713.html" target="_blank">8aff1e3</a>
+</td>
+<td>
+Amanda
+</td>
+<td>
+2021-08-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -801,45 +836,7 @@ dat_all &lt;-
   dat_all %&gt;%  
   left_join(comm_num_dat, by = c(&quot;study_id&quot; = &quot;study_id&quot;, &quot;round&quot; = &quot;round&quot;)) %&gt;%
   mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %&gt;%
-  select(-comm_num.x, -comm_num.y)
-
-dat_all %&gt;% relocate(study_id) %&gt;% group_by(study_id)</code></pre>
-<pre><code># A tibble: 105,060 x 90
-# Groups:   study_id [51,620]
-   study_id round radio bicycle motorcyc   car  roof floor walls electric
-   &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
- 1 A000001  R002      1       1        2     2     1     1     2        2
- 2 A000001  R005      2       1        2     2     1     1     3        2
- 3 A000001  R006      1       1        2     2     1     1     3        2
- 4 A000001  R008      1       1        2     2     1     3     3        2
- 5 A000035  R001      1       1        2     2     1     3     2        2
- 6 A000035  R002      2       1        2     2     1     3     2        2
- 7 A000051  R001      2       2        2     2     1     1     3        2
- 8 A000077  R001      2       2        2     2     1     1     2        2
- 9 A000077  R002      2       2        2     2     1     1     2        2
-10 A000077  R003      2       2        2     2     1     1     2        2
-# … with 105,050 more rows, and 80 more variables: latrine &lt;dbl&gt;,
-#   othfloor &lt;chr&gt;, ageyrs &lt;dbl&gt;, evermarr &lt;dbl+lbl&gt;, currmarr &lt;dbl+lbl&gt;,
-#   occup1 &lt;dbl&gt;, occup2 &lt;dbl&gt;, eversex &lt;dbl&gt;, pregnow &lt;dbl+lbl&gt;,
-#   everpreg &lt;dbl+lbl&gt;, fpusing1 &lt;dbl&gt;, fpusing2 &lt;dbl&gt;, fpusing3 &lt;dbl&gt;,
-#   fpusing4 &lt;dbl&gt;, fpusing5 &lt;dbl&gt;, fpusing6 &lt;dbl&gt;, fpusing7 &lt;dbl&gt;,
-#   fpusing8 &lt;dbl&gt;, fpusing9 &lt;dbl&gt;, polymar &lt;dbl&gt;, sexyear &lt;dbl&gt;,
-#   sexp1yr &lt;dbl&gt;, livechild &lt;dbl&gt;, occs &lt;chr&gt;, occup11 &lt;dbl&gt;, occup21 &lt;dbl&gt;,
-#   othfp &lt;chr&gt;, alclstmo &lt;chr&gt;, sexp1out &lt;dbl&gt;, sexpsxm &lt;dbl&gt;,
-#   pabuseyr &lt;dbl+lbl&gt;, ppushyr &lt;dbl+lbl&gt;, pfistyr &lt;dbl+lbl&gt;,
-#   pkickyr &lt;dbl+lbl&gt;, pweapyr &lt;dbl+lbl&gt;, patknyr &lt;dbl+lbl&gt;,
-#   vthrsxpy &lt;dbl+lbl&gt;, othfsxpy &lt;dbl+lbl&gt;, pfocsxpy &lt;dbl+lbl&gt;, occups1 &lt;chr&gt;,
-#   conf_age &lt;dbl&gt;, dissed12m &lt;chr&gt;, disins12m &lt;chr&gt;, forcsxtn &lt;chr&gt;,
-#   heardarv &lt;chr&gt;, numbirth &lt;dbl&gt;, fpusng10 &lt;dbl&gt;, fpusng11 &lt;dbl&gt;,
-#   fpusng12 &lt;dbl&gt;, numchild &lt;dbl&gt;, occupat11 &lt;chr&gt;, occupat1 &lt;chr&gt;,
-#   occupat2 &lt;chr&gt;, smoke &lt;dbl&gt;, circhusb &lt;dbl&gt;, occupat21 &lt;chr&gt;,
-#   sexp1yrb &lt;chr&gt;, educate &lt;dbl+lbl&gt;, educyrs &lt;dbl&gt;, ag1stsex &lt;dbl&gt;,
-#   numpreg &lt;chr&gt;, evermend &lt;dbl+lbl&gt;, pothvyr &lt;dbl+lbl&gt;, school &lt;dbl+lbl&gt;,
-#   finsch &lt;dbl+lbl&gt;, pregsch &lt;dbl+lbl&gt;, movesch &lt;dbl+lbl&gt;, menasch &lt;dbl+lbl&gt;,
-#   harasch &lt;dbl+lbl&gt;, bullwsch &lt;dbl+lbl&gt;, paresch &lt;dbl+lbl&gt;,
-#   accomsch &lt;dbl+lbl&gt;, othsch &lt;dbl+lbl&gt;, spesch &lt;chr&gt;, addtrain &lt;dbl&gt;,
-#   othpvyrs &lt;chr&gt;, female &lt;dbl+lbl&gt;, conf_age_flow &lt;dbl&gt;, hivrslt &lt;dbl&gt;,
-#   comm_num &lt;dbl&gt;</code></pre>
+  select(-comm_num.x, -comm_num.y)</code></pre>
 <p><strong>Check if all requested variables exist</strong></p>
 <pre class="r"><code>vars &lt;- c(&quot;occup1&quot;, &quot;occup2&quot;, &quot;occupat1&quot;, &quot;occupat2&quot;, &quot;occs&quot;, # outcome
           &quot;female&quot;, &quot;ageyrs&quot;, &quot;conf_age&quot;, &quot;conf_age_flow&quot;, # demographics
@@ -1782,20 +1779,16 @@ Amanda
 <li><p>Marriage</p></li>
 <li><p>Marital dissolution</p></li>
 </ol>
-<p>In addition, in the following section, for every respondent, I choose to only analyse changes in consecutive rounds. Therefore, a new dataset <code>dat_assoc</code> with only information from consecutive rounds is created for the association analysis.</p>
-<p>I will first select the variables that will be used and cross reference with different columns to verify their validity. Missing values will be fill in if possible. Then, a new <code>include</code> variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.</p>
+<p>I will select the variables that will be used and cross reference with different columns to verify their validity. Missing values will be fill in if possible.</p>
 <div id="data-recoding-and-verification" class="section level3">
 <h3>Data Recoding and Verification</h3>
 <ol style="list-style-type: decimal">
-<li>Select variables needed, drop respondent with missing values for features that cannot be filled in using other features</li>
-</ol>
+<li><p>Select variables needed, drop respondent with missing values for features that cannot be filled in using other features</p>
 <pre class="r"><code>dat_assoc &lt;-
   dat_all %&gt;%
   select(study_id, visit, occup1, area, female, everpreg, pregnow, SES, SEScat, livechild, numchild, evermarr, currmarr) %&gt;%
-  drop_na(study_id, visit, occup1, area)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li><code>numchild</code> - female only + male for Rn15 &amp; 16</li>
-</ol>
+  drop_na(study_id, visit, occup1, area)</code></pre></li>
+<li><p><code>numchild</code> - female only + male for Rn15 &amp; 16</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -1943,10 +1936,8 @@ NR
 <pre class="r"><code>dat_assoc &lt;-
   dat_assoc %&gt;% 
   mutate(numchild = ifelse(is.na(numchild), 99, numchild)) %&gt;% 
-  mutate(numchild = ifelse(numchild == 8, 0, numchild))</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li><code>livechild</code> - 0 (male); 1 (female) for Rnd 2, 3, 4, 15, 16, 18, 19</li>
-</ol>
+  mutate(numchild = ifelse(numchild == 8, 0, numchild))</code></pre></li>
+<li><p><code>livechild</code> - 0 (male); 1 (female) for Rnd 2, 3, 4, 15, 16, 18, 19</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -2048,15 +2039,23 @@ dat_assoc %&gt;% filter(livechild == 2) %&gt;% select(numchild) %&gt;% unique()<
 2       98
 3        0
 4        2</code></pre>
+<pre class="r"><code># if numchild == 0 then livechild = 2
+dat_assoc %&gt;% ungroup() %&gt;% filter(numchild == 0) %&gt;% select(livechild) %&gt;% unique()</code></pre>
+<pre><code># A tibble: 3 x 1
+  livechild
+      &lt;dbl&gt;
+1         8
+2         1
+3         2</code></pre>
 <pre class="r"><code># if livechild == 2 &amp; numchild == 2, then livechild = 1
 # if livechild == 2 &amp; numchild == 98, then numchild = 99
+# if numchild == 0, then livechild = 2
 dat_assoc &lt;-
   dat_assoc %&gt;% 
   mutate(livechild = ifelse(livechild == 2 &amp; numchild == 2, 1, livechild)) %&gt;%
-  mutate(numchild = ifelse(livechild == 2 &amp; numchild == 98, 99, numchild))</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li><code>pregnow</code> - female only</li>
-</ol>
+  mutate(numchild = ifelse(livechild == 2 &amp; numchild == 98, 99, numchild)) %&gt;%
+  mutate(livechild = ifelse(numchild == 0, 2, livechild))</code></pre></li>
+<li><p><code>pregnow</code> - female only</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -2145,10 +2144,8 @@ Replace with 8
 <pre class="r"><code>dat_assoc &lt;-
   dat_assoc %&gt;% 
   mutate(pregnow = ifelse(pregnow == 3, 7, pregnow)) %&gt;%
-  mutate(pregnow = ifelse(is.na(pregnow), 8, pregnow))</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li><code>everpreg</code> - female only</li>
-</ol>
+  mutate(pregnow = ifelse(is.na(pregnow), 8, pregnow))</code></pre></li>
+<li><p><code>everpreg</code> - female only</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -2246,10 +2243,8 @@ dat_assoc %&gt;% filter(numchild %in% c(1:7), female == 1) %&gt;% select(everpre
 <pre><code># A tibble: 1 x 1
   everpreg
      &lt;dbl&gt;
-1        1</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li><code>female</code>: 0 (male), 1 (female)</li>
-</ol>
+1        1</code></pre></li>
+<li><p><code>female</code>: 0 (male), 1 (female)</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -2372,10 +2367,8 @@ dat_assoc %&gt;% filter(study_id == &quot;G005620&quot;)</code></pre>
 #   currmarr &lt;dbl+lbl&gt;</code></pre>
 <pre class="r"><code>dat_assoc &lt;-
   dat_assoc %&gt;% 
-  mutate(female = ifelse(study_id == &quot;G005620&quot;, 1, female))</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li><code>evermarr</code></li>
-</ol>
+  mutate(female = ifelse(study_id == &quot;G005620&quot;, 1, female))</code></pre></li>
+<li><p><code>evermarr</code></p>
 <pre class="r"><code>evermarr_val &lt;- c(1, 2, 8, NA)
 evermarr_label &lt;- c(&quot;Yes&quot;, &quot;No&quot;, &quot;N/A&quot;, &quot;NA&quot;)
 evermarr_manipulation &lt;- c(&quot;&quot;, &quot;&quot;, &quot;Label as NR&quot;, &quot;Replace with 8&quot;)
@@ -2450,10 +2443,8 @@ Replace with 8
 </div>
 <pre class="r"><code>dat_assoc &lt;-
   dat_assoc %&gt;% 
-  mutate(evermarr = ifelse(is.na(evermarr), 8, evermarr))</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li><code>currmarr</code></li>
-</ol>
+  mutate(evermarr = ifelse(is.na(evermarr), 8, evermarr))</code></pre></li>
+<li><p><code>currmarr</code></p>
 <pre class="r"><code>currmarr_val &lt;- c(0, 1, 2, 8, 9, NA)
 currmarr_label &lt;- c(&quot;0&quot;, &quot;Currently married&quot;, &quot;Previously married&quot;, &quot;Never been married&quot;, &quot;9&quot;, &quot;NA&quot;)
 currmarr_manipulation &lt;- c(&quot;Replace with 9&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;Label as NR&quot;, &quot;Replace with 9&quot;)
@@ -2552,9 +2543,9 @@ Replace with 9
   mutate(currmarr = ifelse(currmarr == 0, 9, currmarr)) %&gt;%
   mutate(currmarr = ifelse(is.na(currmarr), 9, currmarr)) %&gt;%
   mutate(currmarr = labelled(currmarr, c(&quot;Currently married&quot; = 1,
-                                         &quot;Previously married&quot; = 2,
-                                         &quot;Never been married&quot; = 8,
-                                         &quot;NR&quot; = 9)))
+                                     &quot;Previously married&quot; = 2,
+                                     &quot;Never been married&quot; = 8,
+                                     &quot;NR&quot; = 9)))
 
 # cross checking evermarr v.s. currmarr
 # if currmarr = 1 | 2 then evermarr = 1
@@ -2581,29 +2572,356 @@ dat_assoc %&gt;% filter(currmarr == 1 | currmarr == 2) %&gt;% select(evermarr) %
 10 A000166      1  1 [Agri… rural      1        8       2 1.15  low-m…         8
 # … with 15,936 more rows, and 3 more variables: numchild &lt;dbl&gt;,
 #   evermarr &lt;dbl&gt;, currmarr &lt;dbl+lbl&gt;</code></pre>
-<pre class="r"><code>### QUESTION</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Labeling all categorical variables</li>
+<pre class="r"><code>### QUESTION</code></pre></li>
+<li><p>Labeling all categorical variables</p>
+<pre class="r"><code>  dat_assoc &lt;-
+dat_assoc %&gt;% 
+mutate(numchild = labelled(numchild, c(&quot;None&quot; = 0, &quot;DK&quot; = 98, &quot;NR&quot; = 99))) %&gt;%
+mutate(livechild = labelled(livechild, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) %&gt;%
+mutate(pregnow = labelled(pregnow, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
+mutate(everpreg = labelled(everpreg, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
+mutate(female = labelled(female, c(&quot;Female&quot; = 1, &quot;Male&quot; = 0))) %&gt;%
+mutate(evermarr = labelled(evermarr, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) 
+  # %&gt;% mutate(currmarr = labelled(currmarr, c()))</code></pre></li>
 </ol>
-<pre class="r"><code>dat_assoc &lt;-
-  dat_assoc %&gt;% 
-  mutate(numchild = labelled(numchild, c(&quot;None&quot; = 0, &quot;DK&quot; = 98, &quot;NR&quot; = 99))) %&gt;%
-  mutate(livechild = labelled(livechild, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) %&gt;%
-  mutate(pregnow = labelled(pregnow, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
-  mutate(everpreg = labelled(everpreg, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;DK&quot; = 7, &quot;NR&quot; = 8))) %&gt;%
-  mutate(female = labelled(female, c(&quot;Female&quot; = 1, &quot;Male&quot; = 0))) %&gt;%
-  mutate(evermarr = labelled(evermarr, c(&quot;Yes&quot; = 1, &quot;No&quot; = 2, &quot;NR&quot; = 8))) 
-# %&gt;% mutate(currmarr = labelled(currmarr, c()))</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Filter data by consecutive rounds</li>
-</ol>
-<pre class="r"><code>dat_assoc &lt;-
+</div>
+<div id="moving-change-in-area-in-consecutive-rounds" class="section level3">
+<h3>Moving (change in <code>area</code> in consecutive rounds)</h3>
+<pre class="r"><code>dat_move_occup &lt;-
   dat_assoc %&gt;%
-  group_by(study_id) %&gt;%
-  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %&gt;%
-  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %&gt;%
-  mutate(include = ifelse((visit_prev_change + visit_next_change) &gt;= 1, 1, 0)) %&gt;%
-  filter(include == 1)</code></pre>
+  select(study_id, visit, area, occup1) %&gt;%
+  group_by(study_id)
+
+dat_move_occup &lt;-
+  dat_move_occup %&gt;%
+  mutate(area_change = ifelse(area != lag(area, default = area[1]), 1, 0)) %&gt;%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0)) %&gt;%
+  slice(-1) 
+
+dat_move_occup &lt;-
+  dat_move_occup %&gt;% ungroup() %&gt;% select(area_change, occup1_change)</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Let OR = the odds ratio of change occupation for those moved v.s. those who did not move</p></li>
+<li><p>Hypothesis: <span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
+<li><p>Contingency table</p></li>
+</ol>
+<pre><code>```r
+table_move_occup &lt;- table(dat_move_occup)
+addmargins(table_move_occup)
+```
+
+```
+           occup1_change
+area_change     0     1   Sum
+        0   30106 18101 48207
+        1     212   357   569
+        Sum 30318 18458 48776
+```
+
+```r
+mosaicplot(t(table_move_occup), 
+          col = colors, 
+          cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;Moved&quot;, main = &quot;&quot;)
+```
+
+&lt;img src=&quot;figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-33-1.png&quot; width=&quot;816&quot; style=&quot;display: block; margin: auto;&quot; /&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use Pearson Chi-squared to test for association</li>
+</ol>
+<pre><code>```r
+oddsratio(table_move_occup, method = &quot;wald&quot;)
+```
+
+```
+$data
+           occup1_change
+area_change     0     1 Total
+      0     30106 18101 48207
+      1       212   357   569
+      Total 30318 18458 48776
+
+$measure
+           odds ratio with 95% C.I.
+area_change estimate    lower    upper
+          0 1.000000       NA       NA
+          1 2.800805 2.360722 3.322928
+
+$p.value
+           two-sided
+area_change midp.exact fisher.exact   chi.square
+          0         NA           NA           NA
+          1          0 1.933841e-33 7.210877e-35
+
+$correction
+[1] FALSE
+
+attr(,&quot;method&quot;)
+[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;
+```</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Conclusion: Those who moved between visits has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = <span class="math inline">\(4*10^{-16}\)</span>) at 5% LOS.</li>
+</ol>
+</div>
+<div id="pregnancy-everpreg-1---pregnow-1---pregnow-change-from-2-to-1-in-consecutive-rounds" class="section level3">
+<h3>Pregnancy (<code>everpreg = 1</code> -&gt; <code>pregnow = 1</code> -&gt; <code>pregnow</code> change from 2 to 1 in consecutive rounds)</h3>
+<pre class="r"><code>dat_preg_occup &lt;-
+  dat_assoc %&gt;% 
+  select(study_id, visit, female, everpreg, pregnow, occup1) %&gt;%
+  filter(female == 1 &amp; everpreg == 1 &amp; pregnow %in% c(1,2)) %&gt;% 
+  group_by(study_id)
+
+# 1 - became pregnant; 0 - did not become pregnant
+dat_preg_occup &lt;-
+  dat_preg_occup %&gt;% 
+  mutate(pregprev = lag(pregnow, default = pregnow[1])) %&gt;%
+  mutate(pregnow_change = ifelse((pregprev == 2 &amp; pregnow == 1), 1, 0)) %&gt;%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_preg_occup &lt;-
+  dat_preg_occup %&gt;% ungroup() %&gt;% select(pregnow_change,occup1_change)</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Let OR = the odds ratio of change occupation for those became pregnant v.s. those who did not become pregnant</p></li>
+<li><p>Hypothesis: <span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
+<li><p>Contingency table</p></li>
+</ol>
+<pre><code>```r
+table_preg_occup &lt;- table(dat_preg_occup)
+addmargins(table_preg_occup)
+```
+
+```
+              occup1_change
+pregnow_change     0     1   Sum
+           0   24539  4491 29030
+           1    1538   799  2337
+           Sum 26077  5290 31367
+```
+
+```r
+mosaicplot(t(table_preg_occup), 
+          col = colors, 
+          cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;Pregnancy Status&quot;, main = &quot;&quot;)
+```
+
+&lt;img src=&quot;figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-36-1.png&quot; width=&quot;816&quot; style=&quot;display: block; margin: auto;&quot; /&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use Pearson Chi-squared to test for association</li>
+</ol>
+<pre><code>```r
+oddsratio(table_preg_occup, method = &quot;wald&quot;)
+```
+
+```
+$data
+              occup1_change
+pregnow_change     0    1 Total
+         0     24539 4491 29030
+         1      1538  799  2337
+         Total 26077 5290 31367
+
+$measure
+              odds ratio with 95% C.I.
+pregnow_change estimate    lower    upper
+             0   1.0000       NA       NA
+             1   2.8386 2.591174 3.109653
+
+$p.value
+              two-sided
+pregnow_change midp.exact  fisher.exact   chi.square
+             0         NA            NA           NA
+             1          0 2.887383e-100 1.43906e-119
+
+$correction
+[1] FALSE
+
+attr(,&quot;method&quot;)
+[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;
+```</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Conclusion: Those who became pregnant between visits has 1.6 times the odds of change occupation as compared to those who did not move (95% CI: 1.4, 1.7). Further, we have enough evidence to conclude that this association is statistically significant (p-value = <span class="math inline">\(4*10^{-22}\)</span>) at 5% LOS.</li>
+</ol>
+</div>
+<div id="drastic-change-in-ses---when-the-sescat-variable-changed-between-visits" class="section level3">
+<h3>Drastic change in SES - when the <code>SEScat</code> variable changed between visits</h3>
+<pre class="r"><code>dat_ses_occup &lt;-
+  dat_assoc %&gt;%
+  select(study_id, visit, SEScat, SES, occup1) %&gt;%
+  group_by(study_id) 
+
+dat_ses_occup &lt;-
+  dat_ses_occup %&gt;%
+  mutate(SEScat_change = ifelse(SEScat != lag(SEScat, default = SEScat[1]), 1, 0)) %&gt;%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_ses_occup &lt;-
+  dat_ses_occup %&gt;% slice(-1) %&gt;% ungroup() %&gt;% select(SEScat_change, occup1_change)</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Let OR = the odds ratio of change occupation for those whose SEScat changed v.s. those whose SEScat did not change</p></li>
+<li><p>Hypothesis: <span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
+<li><p>Contingency table</p></li>
+</ol>
+<pre><code>```r
+table_ses_occup &lt;- table(dat_ses_occup)
+addmargins(table_ses_occup)
+```
+
+```
+             occup1_change
+SEScat_change     0     1   Sum
+          0   17583 10025 27608
+          1   12439  8334 20773
+          Sum 30022 18359 48381
+```
+
+```r
+mosaicplot(t(table_ses_occup), 
+              col = colors,
+              cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;SES Status&quot;, main = &quot;&quot;)
+```
+
+&lt;img src=&quot;figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-39-1.png&quot; width=&quot;816&quot; style=&quot;display: block; margin: auto;&quot; /&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use Pearson Chi-squared to test for association</li>
+</ol>
+<pre><code>```r
+oddsratio(table_ses_occup, method = &quot;wald&quot;)
+```
+
+```
+$data
+             occup1_change
+SEScat_change     0     1 Total
+        0     17583 10025 27608
+        1     12439  8334 20773
+        Total 30022 18359 48381
+
+$measure
+             odds ratio with 95% C.I.
+SEScat_change estimate    lower    upper
+            0 1.000000       NA       NA
+            1 1.175105 1.132383 1.219438
+
+$p.value
+             two-sided
+SEScat_change midp.exact fisher.exact   chi.square
+            0         NA           NA           NA
+            1          0 1.484048e-17 1.311457e-17
+
+$correction
+[1] FALSE
+
+attr(,&quot;method&quot;)
+[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;
+```</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Conclusion: Those who had a change in SES status (<code>SEScat</code>) bewteen visits has 1.17 times the odds of change occupation as compared to those who did not move (95% CI: 1.13, 1.22). Further, we have enough evidence to conclude that this association is statistically significant (p-value = <span class="math inline">\(1.3*10^{-17}\)</span>) at 5% LOS.</p></li>
+<li><p><strong>Have a Child (<code>livechild</code> from 2 to 1 in consecutive rounds) </strong></p></li>
+</ol>
+<pre class="r"><code>dat_child_occup &lt;-
+  dat_assoc %&gt;%
+  select(study_id, visit, livechild, numchild, occup1) %&gt;%
+  group_by(study_id) 
+
+dat_child_occup &lt;-
+  dat_child_occup %&gt;%
+  filter(livechild %in% c(1,2)) %&gt;%
+  filter(numchild %in% c(0:7)) %&gt;%
+  mutate(livechildprev = lag(livechild, default = livechild[1])) %&gt;%
+  mutate(livechild_change = ifelse((livechildprev == 2 &amp; livechild == 1), 1, 0)) %&gt;%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_child_occup &lt;-
+  dat_child_occup %&gt;% ungroup() %&gt;% select(livechild_change, occup1_change)
+
+dat_child_occup</code></pre>
+<pre><code># A tibble: 7,210 x 2
+   livechild_change occup1_change
+              &lt;dbl&gt;         &lt;dbl&gt;
+ 1                0             0
+ 2                0             0
+ 3                0             0
+ 4                0             0
+ 5                0             0
+ 6                0             0
+ 7                0             0
+ 8                0             0
+ 9                0             0
+10                0             0
+# … with 7,200 more rows</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Let OR = the odds ratio of change occupation for those who had a living children v.s. those whose SEScat did not change in consecutive rounds</p></li>
+<li><p>Hypothesis: <span class="math inline">\(H_0: OR = 1\)</span> v.s. <span class="math inline">\(H_1: OR \neq 1\)</span></p></li>
+<li><p>Contingency table</p></li>
+</ol>
+<pre><code>```r
+table_ses_occup &lt;- table(dat_child_occup)
+addmargins(table_ses_occup)
+```
+
+```
+                occup1_change
+livechild_change    0    1  Sum
+             0   6623  405 7028
+             1     78  104  182
+             Sum 6701  509 7210
+```
+
+```r
+mosaicplot(t(table_ses_occup), 
+          col = colors,
+          cex.axis = 1, xlab = &quot;Changed Occuaption&quot;, ylab = &quot;SES Status&quot;, main = &quot;&quot;)
+```
+
+&lt;img src=&quot;figure/rakai_occupational_trend_20210713.Rmd/unnamed-chunk-42-1.png&quot; width=&quot;816&quot; style=&quot;display: block; margin: auto;&quot; /&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use Pearson Chi-squared to test for association</li>
+</ol>
+<pre><code>```r
+oddsratio(table_ses_occup, method = &quot;wald&quot;)
+```
+
+```
+$data
+                occup1_change
+livechild_change    0   1 Total
+           0     6623 405  7028
+           1       78 104   182
+           Total 6701 509  7210
+
+$measure
+                odds ratio with 95% C.I.
+livechild_change estimate    lower    upper
+               0  1.00000       NA       NA
+               1 21.80412 15.98825 29.73555
+
+$p.value
+                two-sided
+livechild_change midp.exact fisher.exact    chi.square
+               0         NA           NA            NA
+               1          0 2.864086e-74 2.994322e-157
+
+$correction
+[1] FALSE
+
+attr(,&quot;method&quot;)
+[1] &quot;Unconditional MLE &amp; normal approximation (Wald) CI&quot;
+```
+5. Conclusion: Those who had a living child between visits has 21.8 times the odds of change occupation as compared to those who did not move (95% CI: 16.0, 29.7). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $3.0*10^{-157}$) at 5% LOS.</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p><strong>Marriage (<code>evermarr 1 =</code> -&gt; <code>currmarr = 1</code> -&gt; <code>currmarr</code> change from 0 to 1 in consecutive rounds)</strong></p></li>
+<li><p><strong>Marital Dissolution (<code>evermarr 1 =</code> -&gt; <code>currmarr = 0</code> -&gt; <code>currmarr</code> change from 1 to 0 in consecutive rounds)</strong></p></li>
+</ol>
+</div>
+<div id="variable-selection-and-transformation" class="section level3">
+<h3>Variable selection and transformation</h3>
+<pre class="r"><code># dat_assoc %&gt;% glm(occup1 ~ )</code></pre>
+</div>
+<div id="model-fitting" class="section level3">
+<h3>Model fitting</h3>
+</div>
+</div>
+<div id="assess-the-role-in-policies-like-upe-and-use-in-any-shifts-in-occupations-over-time" class="section level2">
+<h2>Assess the role in policies like UPE and USE in any shifts in occupations over time</h2>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2650,7 +2968,6 @@ loaded via a namespace (and not attached):
 [53] DBI_1.1.1         R6_2.5.0          lubridate_1.7.10  utf8_1.2.1       
 [57] workflowr_1.6.2   rprojroot_2.0.2   stringi_1.6.2     Rcpp_1.0.6       
 [61] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.1  xfun_0.23        </code></pre>
-</div>
 </div>
 </div>
 
