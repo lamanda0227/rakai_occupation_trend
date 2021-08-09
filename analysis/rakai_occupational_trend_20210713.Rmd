@@ -65,8 +65,6 @@ dat_all <-
   left_join(comm_num_dat, by = c("study_id" = "study_id", "round" = "round")) %>%
   mutate(comm_num = ifelse(is.na(comm_num.x), comm_num.y, comm_num.x)) %>%
   select(-comm_num.x, -comm_num.y)
-
-dat_all %>% relocate(study_id) %>% group_by(study_id)
 ```
 
 **Check if all requested variables exist**
@@ -552,24 +550,22 @@ I choose to examine the following social and structural transitions and their im
 
   6. Marital dissolution
   
-In addition, in the following section, for every respondent, I choose to only analyse changes in consecutive rounds. Therefore, a new dataset `dat_assoc` with only information from consecutive rounds is created for the association analysis. 
-
-I will first select the variables that will be used and cross reference with different columns to verify their validity. Missing values will be fill in if possible. Then, a new `include` variable is created to filter the data. For example, if respondent A has data for round 1, 2, 4, 6, and 7, then only data for round 1, 2, 6, and 7 will be selected for further analysis.
+I will select the variables that will be used and cross reference with different columns to verify their validity. Missing values will be fill in if possible.
 
 ### Data Recoding and Verification
 
 1. Select variables needed, drop respondent with missing values for features that cannot be filled in using other features
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_all %>%
   select(study_id, visit, occup1, area, female, everpreg, pregnow, SES, SEScat, livechild, numchild, evermarr, currmarr) %>%
   drop_na(study_id, visit, occup1, area)
-```
+    ```
 
 2. `numchild` - female only + male for Rn15 & 16
 
-```{r echo=FALSE}
+    ```{r echo=FALSE}
 numchild_val <- c('NA', 0:8, 98, 99)
 numchild_label <- c("Missing", "None", rep("Number of child", 7) , "Skipped (no livechild or never been pregnant)", "DK", "NR")
 numchild_maniplation <- c("Replace NA with 99 (NR)", rep("", 8), "Replace 8 with 0 (None)", "", "")
@@ -578,18 +574,18 @@ data.frame(numchild = numchild_val, Label = numchild_label, Manipulation = numch
   kable(style = "html", caption = "numchild") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_assoc %>% 
   mutate(numchild = ifelse(is.na(numchild), 99, numchild)) %>% 
   mutate(numchild = ifelse(numchild == 8, 0, numchild))
-```
+    ```
 
 3. `livechild` - 0 (male); 1 (female) for Rnd 2, 3, 4, 15, 16, 18, 19
 
-```{r echo=FALSE}
+    ```{r echo=FALSE}
 livechild_val <- dat_assoc %>% select(livechild) %>% unique() %>% arrange(livechild) %>% as.list()
 livechild_label <- c("Only one person has livechild=0 (numchild=98 DK; evergpreg=1; pregnow=1)", 
                      "Yes", 
@@ -607,9 +603,9 @@ data.frame(Value = livechild_val, Meaning = livechild_label, Manipulation = live
   kable(style = "html", caption = "livechild") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_assoc %>% 
   mutate(livechild = ifelse(livechild == 0, 8, livechild)) %>%
@@ -620,17 +616,22 @@ dat_assoc <-
 # livechild == 2 -> numchild = 0 | 99
 dat_assoc %>% filter(livechild == 2) %>% select(numchild) %>% unique()
 
+# if numchild == 0 then livechild = 2
+dat_assoc %>% ungroup() %>% filter(numchild == 0) %>% select(livechild) %>% unique()
+
 # if livechild == 2 & numchild == 2, then livechild = 1
 # if livechild == 2 & numchild == 98, then numchild = 99
+# if numchild == 0, then livechild = 2
 dat_assoc <-
   dat_assoc %>% 
   mutate(livechild = ifelse(livechild == 2 & numchild == 2, 1, livechild)) %>%
-  mutate(numchild = ifelse(livechild == 2 & numchild == 98, 99, numchild))
-```
+  mutate(numchild = ifelse(livechild == 2 & numchild == 98, 99, numchild)) %>%
+  mutate(livechild = ifelse(numchild == 0, 2, livechild))
+    ```
 
 4. `pregnow` - female only
 
-```{r echo=FALSE}
+    ```{r echo=FALSE}
 pregnow_val <- c(1, 2, 3, 7, 8, NA)
 pregnow_label <- c("Yes", "No", "Uncertain (Rnd 4)", "DK", "N/A", "NA")
 pregnow_manipulation <- c("", "", "Replace with 7 (DK)", "", "Label as NR", "Replace with 8")
@@ -639,18 +640,18 @@ data.frame(pregnow = pregnow_val, Label = pregnow_label, Manipulation = pregnow_
   kable(style = "html", caption = "pregnow") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_assoc %>% 
   mutate(pregnow = ifelse(pregnow == 3, 7, pregnow)) %>%
   mutate(pregnow = ifelse(is.na(pregnow), 8, pregnow))
-```
+    ```
 
 5. `everpreg` - female only
 
-```{r echo=FALSE}
+    ```{r echo=FALSE}
 everpreg_val <- c(1, 2, 7, 8, NA)
 everpreg_label <- c("Yes", "No", "DK", "N/A", "NA")
 pregnow_manipulation <- c("", "", "", "Label as NR", "Replace with 8")
@@ -659,9 +660,9 @@ data.frame(everpreg = everpreg_val, Label = everpreg_label, Manipulation = pregn
   kable(style = "html", caption = "everpreg") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_assoc %>% 
   mutate(everpreg = ifelse(is.na(everpreg), 8, everpreg))
@@ -678,11 +679,11 @@ dat_assoc <-
 # corss checking everpreg v.s. numchild
 # if numchild %in% c(1:7) then everpreg = 1 (when female = 1)
 dat_assoc %>% filter(numchild %in% c(1:7), female == 1) %>% select(everpreg) %>% unique()
-```
+    ```
 
 6. `female`: 0 (male), 1 (female)
 
-```{r echo=FALSE}
+    ```{r echo=FALSE}
 female_val <- c(0, 1, NA)
 female_label <- c("Male", "Female", "NA")
 female_manipulation <- c("", "", "Filled by comparing everpreg and pregnow")
@@ -691,9 +692,9 @@ data.frame(female = female_val, Label = female_label, Manipulation = female_mani
   kable(style = "html", caption = "female") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc %>% filter(is.na(female))
 
 # Gender of H131540 cannot be determined
@@ -730,11 +731,11 @@ dat_assoc %>% filter(study_id == "G005620")
 dat_assoc <-
   dat_assoc %>% 
   mutate(female = ifelse(study_id == "G005620", 1, female))
-```
+    ```
 
 7. `evermarr`
 
-```{r}
+    ```{r}
 evermarr_val <- c(1, 2, 8, NA)
 evermarr_label <- c("Yes", "No", "N/A", "NA")
 evermarr_manipulation <- c("", "", "Label as NR", "Replace with 8")
@@ -743,17 +744,17 @@ data.frame(evermarr = evermarr_val, Label = evermarr_label, Manipulation = everm
   kable(style = "html", caption = "evermarr") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc <-
   dat_assoc %>% 
   mutate(evermarr = ifelse(is.na(evermarr), 8, evermarr))
-```
+    ```
 
 8. `currmarr`
 
-```{r}
+    ```{r}
 currmarr_val <- c(0, 1, 2, 8, 9, NA)
 currmarr_label <- c("0", "Currently married", "Previously married", "Never been married", "9", "NA")
 currmarr_manipulation <- c("Replace with 9", "", "", "", "Label as NR", "Replace with 9")
@@ -762,9 +763,9 @@ data.frame(currmarr = currmarr_val, Label = currmarr_label, Manipulation = currm
   kable(style = "html", caption = "currmarr") %>% 
   kable_styling("striped", position = "center") %>%
   scroll_box(height = "200px")
-```
+    ```
 
-```{r}
+    ```{r}
 dat_assoc<-
   dat_assoc %>% 
   mutate(currmarr = ifelse(currmarr == 0, 9, currmarr)) %>%
@@ -779,31 +780,205 @@ dat_assoc<-
 dat_assoc %>% filter(currmarr == 1 | currmarr == 2) %>% select(evermarr) %>% unique()
 dat_assoc %>% filter(currmarr == 1 | currmarr == 2, evermarr == 8)
 ### QUESTION
-```
+    ```
 
 9. Labeling all categorical variables
 
-```{r}
-dat_assoc <-
-  dat_assoc %>% 
-  mutate(numchild = labelled(numchild, c("None" = 0, "DK" = 98, "NR" = 99))) %>%
-  mutate(livechild = labelled(livechild, c("Yes" = 1, "No" = 2, "NR" = 8))) %>%
-  mutate(pregnow = labelled(pregnow, c("Yes" = 1, "No" = 2, "DK" = 7, "NR" = 8))) %>%
-  mutate(everpreg = labelled(everpreg, c("Yes" = 1, "No" = 2, "DK" = 7, "NR" = 8))) %>%
-  mutate(female = labelled(female, c("Female" = 1, "Male" = 0))) %>%
-  mutate(evermarr = labelled(evermarr, c("Yes" = 1, "No" = 2, "NR" = 8))) 
-# %>% mutate(currmarr = labelled(currmarr, c()))
-```
+    ```{r}
+  dat_assoc <-
+    dat_assoc %>% 
+    mutate(numchild = labelled(numchild, c("None" = 0, "DK" = 98, "NR" = 99))) %>%
+    mutate(livechild = labelled(livechild, c("Yes" = 1, "No" = 2, "NR" = 8))) %>%
+    mutate(pregnow = labelled(pregnow, c("Yes" = 1, "No" = 2, "DK" = 7, "NR" = 8))) %>%
+    mutate(everpreg = labelled(everpreg, c("Yes" = 1, "No" = 2, "DK" = 7, "NR" = 8))) %>%
+    mutate(female = labelled(female, c("Female" = 1, "Male" = 0))) %>%
+    mutate(evermarr = labelled(evermarr, c("Yes" = 1, "No" = 2, "NR" = 8))) 
+  # %>% mutate(currmarr = labelled(currmarr, c()))
+    ```
 
-10. Filter data by consecutive rounds
 
+### Moving (change in `area` in consecutive rounds)
+  
 ```{r}
-dat_assoc <-
+dat_move_occup <-
   dat_assoc %>%
-  group_by(study_id) %>%
-  mutate(visit_prev_change = ifelse((visit - lag(visit, default = visit[1])) == 1, 1, 0)) %>%
-  mutate(visit_next_change = ifelse((lead(visit, default = tail(visit,1)) - visit) == 1, 1, 0)) %>%
-  mutate(include = ifelse((visit_prev_change + visit_next_change) >= 1, 1, 0)) %>%
-  filter(include == 1)
+  select(study_id, visit, area, occup1) %>%
+  group_by(study_id)
+
+dat_move_occup <-
+  dat_move_occup %>%
+  mutate(area_change = ifelse(area != lag(area, default = area[1]), 1, 0)) %>%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0)) %>%
+  slice(-1) 
+
+dat_move_occup <-
+  dat_move_occup %>% ungroup() %>% select(area_change, occup1_change)
 ```
+
+  1. Let OR = the odds ratio of change occupation for those moved v.s. those who did not move
+  
+  2. Hypothesis: $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+  
+  3. Contingency table
+  
+    ```{r}
+    table_move_occup <- table(dat_move_occup)
+    addmargins(table_move_occup)
+
+    mosaicplot(t(table_move_occup), 
+              col = colors, 
+              cex.axis = 1, xlab = "Changed Occuaption", ylab = "Moved", main = "")
+    ```
+
+  4. Use Pearson Chi-squared to test for association
+  
+    ```{r}
+    oddsratio(table_move_occup, method = "wald")
+    ```
+
+  5. Conclusion: Those who moved between visits has 2.6 times the odds of change occupation as compared to those who did not move (95% CI: 2.06 3.3). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $4*10^{-16}$) at 5% LOS.
+  
+### Pregnancy (`everpreg = 1` -> `pregnow = 1` -> `pregnow` change from 2 to 1 in consecutive rounds)
+
+```{r}
+dat_preg_occup <-
+  dat_assoc %>% 
+  select(study_id, visit, female, everpreg, pregnow, occup1) %>%
+  filter(female == 1 & everpreg == 1 & pregnow %in% c(1,2)) %>% 
+  group_by(study_id)
+
+# 1 - became pregnant; 0 - did not become pregnant
+dat_preg_occup <-
+  dat_preg_occup %>% 
+  mutate(pregprev = lag(pregnow, default = pregnow[1])) %>%
+  mutate(pregnow_change = ifelse((pregprev == 2 & pregnow == 1), 1, 0)) %>%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_preg_occup <-
+  dat_preg_occup %>% ungroup() %>% select(pregnow_change,occup1_change)
+```
+
+  1. Let OR = the odds ratio of change occupation for those became pregnant v.s. those who did not become pregnant
+  
+  2. Hypothesis: $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+  
+  3. Contingency table
+  
+    ```{r}
+    table_preg_occup <- table(dat_preg_occup)
+    addmargins(table_preg_occup)
+    
+    mosaicplot(t(table_preg_occup), 
+              col = colors, 
+              cex.axis = 1, xlab = "Changed Occuaption", ylab = "Pregnancy Status", main = "")
+    ```
+    
+  4. Use Pearson Chi-squared to test for association
+  
+    ```{r}
+    oddsratio(table_preg_occup, method = "wald")
+    ```
+    
+  5. Conclusion: Those who became pregnant between visits has 1.6 times the odds of change occupation as compared to those who did not move (95% CI: 1.4, 1.7). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $4*10^{-22}$) at 5% LOS.
+
+### Drastic change in SES - when the `SEScat` variable changed between visits
+
+```{r}
+dat_ses_occup <-
+  dat_assoc %>%
+  select(study_id, visit, SEScat, SES, occup1) %>%
+  group_by(study_id) 
+
+dat_ses_occup <-
+  dat_ses_occup %>%
+  mutate(SEScat_change = ifelse(SEScat != lag(SEScat, default = SEScat[1]), 1, 0)) %>%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_ses_occup <-
+  dat_ses_occup %>% slice(-1) %>% ungroup() %>% select(SEScat_change, occup1_change)
+```
+
+  1. Let OR = the odds ratio of change occupation for those whose SEScat changed v.s. those whose SEScat did not change
+  
+  2. Hypothesis: $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+  
+  3. Contingency table
+
+    ```{r}
+    table_ses_occup <- table(dat_ses_occup)
+    addmargins(table_ses_occup)
+    
+    mosaicplot(t(table_ses_occup), 
+                  col = colors,
+                  cex.axis = 1, xlab = "Changed Occuaption", ylab = "SES Status", main = "")
+    ```
+
+  4. Use Pearson Chi-squared to test for association
+  
+    ```{r}
+    oddsratio(table_ses_occup, method = "wald")
+    ```
+    
+  5. Conclusion: Those who had a change in  SES status (`SEScat`) bewteen visits has 1.17 times the odds of change occupation as compared to those who did not move (95% CI: 1.13, 1.22). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $1.3*10^{-17}$) at 5% LOS.
+    
+4. **Have a Child (`livechild` from 2 to 1 in consecutive rounds) **
+
+```{r}
+dat_child_occup <-
+  dat_assoc %>%
+  select(study_id, visit, livechild, numchild, occup1) %>%
+  group_by(study_id) 
+
+dat_child_occup <-
+  dat_child_occup %>%
+  filter(livechild %in% c(1,2)) %>%
+  filter(numchild %in% c(0:7)) %>%
+  mutate(livechildprev = lag(livechild, default = livechild[1])) %>%
+  mutate(livechild_change = ifelse((livechildprev == 2 & livechild == 1), 1, 0)) %>%
+  mutate(occup1_change = ifelse(occup1 != lag(occup1, default = occup1[1]), 1, 0))
+
+dat_child_occup <-
+  dat_child_occup %>% ungroup() %>% select(livechild_change, occup1_change)
+
+dat_child_occup
+```
+
+  1. Let OR = the odds ratio of change occupation for those who had a living children v.s. those whose SEScat did not change in consecutive rounds
+  
+  2. Hypothesis: $H_0: OR = 1$ v.s. $H_1: OR \neq 1$
+  
+  3. Contingency table
+
+    ```{r}
+    table_ses_occup <- table(dat_child_occup)
+    addmargins(table_ses_occup)
+
+    mosaicplot(t(table_ses_occup), 
+              col = colors,
+              cex.axis = 1, xlab = "Changed Occuaption", ylab = "SES Status", main = "")
+    ```
+  4. Use Pearson Chi-squared to test for association
+  
+    ```{r}
+    oddsratio(table_ses_occup, method = "wald")
+    ```
+    5. Conclusion: Those who had a living child between visits has 21.8 times the odds of change occupation as compared to those who did not move (95% CI: 16.0, 29.7). Further, we have enough evidence to conclude that this association is statistically significant (p-value = $3.0*10^{-157}$) at 5% LOS.
+    
+  5. **Marriage (`evermarr 1 =` -> `currmarr = 1` -> `currmarr` change from 0 to 1 in consecutive rounds)**
+
+  6. **Marital Dissolution (`evermarr 1 =` -> `currmarr = 0` -> `currmarr` change from 1 to 0 in consecutive rounds)**
+
+### Variable selection and transformation
+
+```{r}
+
+# dat_assoc %>% glm(occup1 ~ )
+
+
+```
+
+### Model fitting
+
+## Assess the role in policies like UPE and USE in any shifts in occupations over time
+
 
